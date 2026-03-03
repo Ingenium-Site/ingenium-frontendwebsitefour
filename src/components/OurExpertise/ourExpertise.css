@@ -1,8 +1,14 @@
 /* Section background is always #091219 (both themes) */
 .oeSection {
   width: 100%;
-  padding: clamp(56px, 6.5vw, 110px) 0;
+  padding: 140px 0; /* Fixed value - adjust as needed */
   background: #091219;
+}
+
+.oeContainer {
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+  padding-top: 140px; /* Same as section padding */
 }
 
 /* Light mode background */
@@ -76,10 +82,6 @@ body[data-theme="dark"] .oeCardText,
   color: rgba(255, 255, 255, 0.72);
 }
 
-.oeContainer {
-  width: min(1200px, calc(100% - 40px));
-  margin: 0 auto;
-}
 
 .oeTop {
   display: grid;
@@ -102,6 +104,27 @@ body[data-theme="dark"] .oeCardText,
   color: #031416;
   font-size: 14px;
   font-weight: 800;
+  margin-bottom: 40px; /* Added bottom margin */
+}
+
+.oeTitle {
+  font-size: clamp(40px, 5vw, 64px); /* Increased font size */
+  font-weight: 600;
+  line-height: 1.2; /* Reduced line height for tighter spacing */
+  letter-spacing: -0.02em; /* Slight negative tracking for better readability */
+  color: rgba(255, 255, 255, 0.96);
+  margin-bottom: 10px;
+  margin-top: 90px;
+
+}
+
+.oeIntro {
+  margin-top: 20px; /* Added top margin */
+  margin-bottom: 0;
+  margin-right: 20px;
+  color: rgb(255, 255, 255);
+  font-size: 18.5px;
+  line-height: 1.55;
 }
 
 /* Cards grid */
@@ -118,7 +141,7 @@ body[data-theme="dark"] .oeCardText,
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.55);
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
-  min-height: 320px;
+  min-height: 340px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
