@@ -1,5 +1,7 @@
 import React from "react";
 import "./footer.css";
+import { FaInstagram, FaFacebookF, FaYoutube, FaLinkedinIn } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -71,20 +73,59 @@ const Footer = () => {
         </p>
 
         <div className="footer__social" aria-label="Social links">
-          <a className="footer__socialBtn" href="#" aria-label="Instagram">
-            <span className="footer__socialIcon">◎</span>
+          <a
+            className="footer__socialBtn"
+            href="https://instagram.com/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram"
+            title="Instagram"
+          >
+            <FaInstagram className="footer__socialIcon" aria-hidden="true" focusable="false" />
           </a>
-          <a className="footer__socialBtn" href="#" aria-label="Facebook">
-            <span className="footer__socialIcon">f</span>
+
+          <a
+            className="footer__socialBtn"
+            href="https://facebook.com/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Facebook"
+            title="Facebook"
+          >
+            <FaFacebookF className="footer__socialIcon" aria-hidden="true" focusable="false" />
           </a>
-          <a className="footer__socialBtn" href="#" aria-label="X">
-            <span className="footer__socialIcon">X</span>
+
+          <a
+            className="footer__socialBtn"
+            href="https://x.com/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="X (Twitter)"
+            title="X"
+          >
+            <FaXTwitter className="footer__socialIcon" aria-hidden="true" focusable="false" />
           </a>
-          <a className="footer__socialBtn" href="#" aria-label="YouTube">
-            <span className="footer__socialIcon">▶</span>
+
+          <a
+            className="footer__socialBtn"
+            href="https://youtube.com/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="YouTube"
+            title="YouTube"
+          >
+            <FaYoutube className="footer__socialIcon" aria-hidden="true" focusable="false" />
           </a>
-          <a className="footer__socialBtn" href="#" aria-label="LinkedIn">
-            <span className="footer__socialIcon">in</span>
+
+          <a
+            className="footer__socialBtn"
+            href="https://linkedin.com/"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn"
+            title="LinkedIn"
+          >
+            <FaLinkedinIn className="footer__socialIcon" aria-hidden="true" focusable="false" />
           </a>
         </div>
       </div>
