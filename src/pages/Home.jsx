@@ -10,8 +10,6 @@ export default function Home() {
   return (
     <>
       <Hero videoSrc={videoSrc} />
-
-      {/* Global Experience section (Figma section below hero) */}
       <GlobalExperience />
       <OurExpertise />
       <WhyChooseIngenium />

@@ -8,7 +8,6 @@
 .oeContainer {
   width: min(1200px, calc(100% - 40px));
   margin: 0 auto;
-  padding-top: 140px; /* Same as section padding */
 }
 
 /* Light mode background */
@@ -86,7 +85,7 @@ body[data-theme="dark"] .oeCardText,
 .oeTop {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
-  gap: clamp(18px, 3.5vw, 44px);
+  gap: clamp(5px, 3.5vw, 44px);
   align-items: start;
   margin-bottom: clamp(26px, 3.5vw, 44px);
 }
@@ -98,7 +97,7 @@ body[data-theme="dark"] .oeCardText,
 .oePill {
   display: inline-flex;
   align-items: center;
-  padding: 10px 16px;
+  padding: 10px;
   border-radius: 999px;
   background: rgba(40, 231, 240, 0.95);
   color: #031416;

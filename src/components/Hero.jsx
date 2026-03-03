@@ -87,7 +87,16 @@ export default function Hero({ videoSrc = '' }) {
         {/* Video slot moved ABOVE the headline (per your request) */}
         <div className="videoCard" aria-label="Hero looping video">
           {videoSrc ? (
-            <video className="heroVideo" src={videoSrc} autoPlay loop muted playsInline preload="auto" />
+           <video 
+            className="heroVideo" 
+            src={videoSrc} 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            preload="auto"
+            style={{ width: '800px', height: '450px' }} 
+          />
           ) : (
             <div className="videoFallback">
               <img

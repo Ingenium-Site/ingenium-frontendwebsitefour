@@ -5,7 +5,7 @@ import Services from './pages/Services.jsx'
 import About from './pages/About.jsx'
 import Insight from './pages/Insight.jsx'
 import Contact from './pages/Contact.jsx'
-
+import 'animate.css/animate.min.css';
 export default function App() {
   return (
     <Routes>

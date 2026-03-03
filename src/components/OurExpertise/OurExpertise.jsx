@@ -1,5 +1,7 @@
 import React from "react";
 import "./ourExpertise.css";
+import AnimateOnScroll from "../AnimateOnScroll.jsx";
+
 
 const expertiseItems = [
   {
@@ -32,6 +34,7 @@ const OurExpertise = () => {
   return (
     <section className="oeSection" id="our-expertise">
       <div className="oeContainer">
+      <AnimateOnScroll animation="zoomInUp" speed="normal">
         <div className="oeTop">
           <div className="oeLeftTop">
             <div className="oePill">Our Expertise</div>
@@ -49,9 +52,15 @@ const OurExpertise = () => {
             Digital Impact
           </h2>
         </div>
-
+      </AnimateOnScroll>
         <div className="oeGrid">
           {expertiseItems.map((item, idx) => (
+             <AnimateOnScroll 
+            key={idx} 
+            animation="fadeInUp" 
+            delay={idx * 100}
+            threshold={0.15}
+          >
             <article className="oeCard" key={idx}>
               <div className="oeIconCircle" aria-hidden="true" />
               <h3 className="oeCardTitle">
@@ -69,6 +78,7 @@ const OurExpertise = () => {
                 Read More <span className="oeArrow">↗</span>
               </button>
             </article>
+             </AnimateOnScroll>
           ))}
         </div>
       </div>
