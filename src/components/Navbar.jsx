@@ -80,7 +80,7 @@ export default function Navbar() {
           </button>
 
           <NavLink className="navCta" to="/contact">
-            Contact
+            Contact Us
           </NavLink>
         </div>
       </nav>
