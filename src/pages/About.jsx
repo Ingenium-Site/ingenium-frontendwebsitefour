@@ -1,5 +1,5 @@
 import PageHeader from '../components/PageHeader.jsx'
-
+import Footer from "../components/Footer/Footer.jsx"; 
 export default function About() {
   return (
     <main className="page">
@@ -19,6 +19,7 @@ export default function About() {
           </div>
         </div>
       </div>
+      <Footer />
     </main>
   )
 }

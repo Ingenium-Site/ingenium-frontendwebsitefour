@@ -1,6 +1,6 @@
 import PageHeader from "../components/PageHeader.jsx";
 import { useState } from "react";
-
+import Footer from "../components/Footer/Footer.jsx"; 
 import "./contact.css";
 
 export default function Contact() {
@@ -206,6 +206,7 @@ export default function Contact() {
 </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }
