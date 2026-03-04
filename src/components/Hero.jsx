@@ -95,7 +95,6 @@ export default function Hero({ videoSrc = '' }) {
             muted 
             playsInline 
             preload="auto"
-            style={{ width: '800px', height: '450px' }} 
           />
           ) : (
             <div className="videoFallback">

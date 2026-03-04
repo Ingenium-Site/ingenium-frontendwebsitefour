@@ -1,7 +1,7 @@
 /* Section background is always #091219 (both themes) */
 .oeSection {
   width: 100%;
-  padding: 140px 0; /* Fixed value - adjust as needed */
+  padding: clamp(64px, 8vw, 140px) 0;
   background: #091219;
 }
 
@@ -81,6 +81,27 @@ body[data-theme="dark"] .oeCardText,
   color: rgba(255, 255, 255, 0.72);
 }
 
+/* For light theme icons */
+:root[data-theme="light"] .oeIconCircle,
+body[data-theme="light"] .oeIconCircle,
+.light .oeIconCircle {
+  border-color: rgba(0, 0, 0, 0.75);
+}
+
+/* Make sure icons adapt to theme */
+:root[data-theme="light"] .oeIconCircle svg,
+body[data-theme="light"] .oeIconCircle svg,
+.light .oeIconCircle svg {
+  color: #000000;
+}
+
+:root[data-theme="dark"] .oeIconCircle svg,
+body[data-theme="dark"] .oeIconCircle svg,
+.dark .oeIconCircle svg {
+  color: #ffffff;
+}
+
+
 
 .oeTop {
   display: grid;
@@ -149,6 +170,7 @@ body[data-theme="dark"] .oeCardText,
   overflow: hidden;
 }
 
+
 .oeIconCircle {
   position: absolute;
   top: 22px;
@@ -158,6 +180,9 @@ body[data-theme="dark"] .oeCardText,
   border-radius: 999px;
   border: 2px solid rgba(255, 255, 255, 0.75);
   background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .oeArrow {
@@ -210,6 +235,14 @@ body[data-theme="dark"] .wciBtn:hover,
     grid-template-columns: 1fr;
   }
 
+  .oeTitle{
+    margin-top: 24px;
+  }
+
+  .oeIntro{
+    margin-right: 0;
+  }
+
   .oeGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -217,6 +250,11 @@ body[data-theme="dark"] .wciBtn:hover,
   .oeCard {
     min-height: 300px;
   }
+}
+
+@media (max-width: 760px){
+  .oeSection{ padding: 72px 0; }
+  .oePill{ margin-bottom: 22px; }
 }
 
 @media (max-width: 560px) {
@@ -236,5 +274,17 @@ body[data-theme="dark"] .wciBtn:hover,
   .oeIconCircle {
     width: 68px;
     height: 68px;
+  }
+}
+@media (max-width: 560px) {
+  .oeIconCircle {
+    top: 18px; /* Reduce top margin slightly */
+    left: 18px; /* Reduce left margin slightly */
+    width: 64px;
+    height: 64px;
+  }
+
+  .oeCardTitle {
+    margin-top: 80px;
   }
 }

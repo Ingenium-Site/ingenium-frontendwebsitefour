@@ -27,7 +27,7 @@ export default function GlobalExperience() {
               <article className="globalExpCard">
                 <h4 className="globalExpCardTitleTop">We operate from within the problem, then govern execution to measurable outcomes.</h4>
                 <h5 className="globalExpCardTitle">Cross-border</h5>
-                <p className="globalExpCardText">Africa &nbsp;&nbsp; •&nbsp; &nbsp; EU &nbsp;&nbsp; •&nbsp; &nbsp; UK &nbsp;&nbsp; •&nbsp;&nbsp;  US &nbsp;&nbsp; •&nbsp; &nbsp; Asia</p>
+                <p className="globalExpCardText">Africa • EU • UK • US • Asia</p>
               </article>
             </div>
           </AnimateOnScroll>
@@ -37,7 +37,7 @@ export default function GlobalExperience() {
               <article className="globalExpCard">
                 <h4 className="globalExpCardTitleTop">We operate from within the problem, then govern execution to measurable outcomes.</h4>
                 <h5 className="globalExpCardTitle">Governed</h5>
-                <p className="globalExpCardText">Strategy &nbsp;→&nbsp; &nbsp; Systems &nbsp; &nbsp;→&nbsp; &nbsp; Oversight</p>
+                <p className="globalExpCardText">Strategy → Systems → Oversight</p>
               </article>
             </div>
           </AnimateOnScroll>

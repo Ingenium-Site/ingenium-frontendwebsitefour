@@ -190,7 +190,7 @@ padding: 51px; /* Increased from 22px */
   cursor: pointer;
   /* background: #28e7f0; */
   background: none;
-  border: 2x solid #FFFFFF3B; /* Fixed: added 'border' property */
+  border: 2px solid #FFFFFF3B;
   color: #ffffff; /* Default to white for dark mode */
   font-weight: 800;
   font-size: 14px;
@@ -232,6 +232,15 @@ body[data-theme="dark"] .wciBtn:hover,
   .wciRight {
     grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 760px){
+  .wciRight{ gap: 18px; }
+  .wciCard{ padding: 22px; }
+}
+
+@media (max-width: 520px) {
+  .wciCard{ padding: 20px; }
 }
 
 @media (max-width: 520px) {
