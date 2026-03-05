@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import HeroFlowmap from './HeroFlowmap.jsx'
-// particles.js (UMD) attaches window.particlesJS
 import 'particles.js'
 import heroArtwork from '../assets/hero-artwork.png'
 import logoFull from '../assets/ingenium-logo-full.jpeg'
+import ingeniumHeaderVideo from '../assets/IngeniumHeaderWebsite.mp4' 
 
 export default function Hero({ videoSrc = '' }) {
   // Particles background (repulse) – matches the BannerHomeSection behavior you liked
@@ -86,17 +86,17 @@ export default function Hero({ videoSrc = '' }) {
       <div className="heroInner">
         {/* Video slot moved ABOVE the headline (per your request) */}
         <div className="videoCard" aria-label="Hero looping video">
-          {videoSrc ? (
-           <video 
-            className="heroVideo" 
-            src={videoSrc} 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            preload="auto"
-            style={{ width: '800px', height: '450px' }} 
-          />
+          {ingeniumHeaderVideo ? (
+          <video 
+          className="heroVideo" 
+          src={ingeniumHeaderVideo} 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          preload="auto"
+          poster="" 
+        />
           ) : (
             <div className="videoFallback">
               <img
@@ -107,10 +107,7 @@ export default function Hero({ videoSrc = '' }) {
               />
               <div className="videoFallbackHint">
                 <span>Looping video slot</span>
-                <span className="videoFallbackHintSub">
-                  Add a file to <code>public/videos/</code> and set <code>videoSrc</code> in{' '}
-                  <code>src/pages/Home.jsx</code>
-                </span>
+               
               </div>
             </div>
           )}

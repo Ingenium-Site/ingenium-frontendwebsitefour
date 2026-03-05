@@ -5,6 +5,7 @@ import Services from './pages/Services.jsx'
 import About from './pages/About.jsx'
 import Insight from './pages/Insight.jsx'
 import Contact from './pages/Contact.jsx'
+import Expertise from './pages/Expertise.jsx'
 import 'animate.css/animate.min.css';
 export default function App() {
   return (
@@ -15,6 +16,8 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/insight" element={<Insight />} />
         <Route path="/contact" element={<Contact />} />
+
+        <Route path="/expertise/:slug" element={<Expertise />} />
 
         {/* fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
