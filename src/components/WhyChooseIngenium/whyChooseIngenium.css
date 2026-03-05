@@ -1,11 +1,19 @@
 /* Default (dark) remains as-is */
 
 /* Light theme overrides */
+:root[data-theme="light"] .wciSection::before,
+body[data-theme="light"] .wciSection::before,
+.light .wciSection::before {
+  background: rgba(246, 248, 251, 0.275); /* Light overlay - adjust opacity as needed */
+  z-index: 1;
+}
+
+/* Only change the fallback color when theme changes, don't remove background image */
 :root[data-theme="light"] .wciSection,
 body[data-theme="light"] .wciSection,
 .light .wciSection {
-  /* keep a light-friendly background for the section area */
-  background: #f6f8fb;
+  /* Instead, ensure the background image remains */
+  background-blend-mode: overlay; /* This helps blend image with overlay */
 }
 
 :root[data-theme="light"] .wciPill,
@@ -13,7 +21,7 @@ body[data-theme="light"] .wciPill,
 .light .wciPill {
   background: #6EEEF4;
   border-color: rgba(0, 0, 0, 0.12);
-  color: #050c12a4;
+  color: #050c12;
 }
 
 :root[data-theme="light"] .wciTitle,
@@ -76,13 +84,45 @@ body[data-theme="light"] .wciBtn,
 }
 
 
-.wciSection {
+.wciParticles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Below the content but above the background */
+}
+
+/* .wciSection {
   width: 100%;
   padding: clamp(48px, 6vw, 96px) 0;
+} */
+.wciSection {
+  position: relative; /* Needed for proper particle positioning */
+  width: 100%;
+  padding: clamp(48px, 6vw, 96px) 0;
+  background-image: url('../../assets/why.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden; /* Contain particles within section */
+}
+
+.wciSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 12, 18, 0.508); /* Dark overlay for default (dark) mode */
+  z-index: 1;
 }
 
 .wciContainer {
- width: min(1200px, calc(100% - 40px));
+  position: relative;
+  z-index: 1; /* Ensure content appears above the overlay */
+  width: min(1200px, calc(100% - 40px));
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
@@ -100,9 +140,9 @@ body[data-theme="light"] .wciBtn,
   align-items: center;
   padding: 10px 16px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: #C9A227;
   border: 1px solid rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.92);
+  color: #041417;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.2px;

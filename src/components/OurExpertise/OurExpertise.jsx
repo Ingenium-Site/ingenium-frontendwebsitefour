@@ -45,11 +45,11 @@ const expertiseItems = [
   },
 ];
 
-const OurExpertise = () => {
+const OurExpertise = ({ resetAnimations }) => {
   return (
     <section className="oeSection" id="our-expertise">
       <div className="oeContainer">
-        <AnimateOnScroll animation="zoomInUp" speed="normal">
+        <AnimateOnScroll animation="zoomInUp" speed="normal" resetKey={resetAnimations}>
           <div className="oeTop">
             <div className="oeLeftTop">
               <div className="oePill">Our Expertise</div>
@@ -75,6 +75,7 @@ const OurExpertise = () => {
               animation="fadeInUp" 
               delay={idx * 100}
               threshold={0.15}
+              resetKey={resetAnimations}
             >
               <article className="oeCard" key={idx}>
                 <div className="oeIconCircle" aria-hidden="true">

@@ -21,7 +21,7 @@
   --input-border: rgba(255,255,255,0.18);
 
   /* Home section theming */
-  --home-section-bg: #050C12;
+  --home-section-bg: #050c1218;
   --home-card-bg: rgba(255,255,255,0.06);
   --home-card-border: rgba(255,255,255,0.14);
 
@@ -169,7 +169,7 @@ a{ color: inherit; }
   right: 0;
   bottom: -10px;
   height: 2px;
-  background:  var(--bg);
+  /* background:  var(--bg); */
 }
 
 .navRight{
@@ -212,11 +212,43 @@ html[data-theme="light"] .themeToggle{
   font-weight: 700;
   font-size: 15px;
   padding: 12px 22px;
-  border-radius: 2px;
+  border-radius: 18px;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Shared pill button (used across sections/pages) */
+.wciBtn{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  background: none;
+  text-decoration: none;
+  border: 2px solid rgba(255,255,255,0.23);
+  color: var(--text-strong);
+  font-weight: 800;
+  font-size: 14px;
+  transition: transform 180ms ease, filter 180ms ease, background-color 180ms ease;
+  width: fit-content;
+}
+
+html[data-theme="light"] .wciBtn{
+  border-color: rgba(0,0,0,0.18);
+  color: rgba(12,18,24,0.92);
+}
+
+.wciBtn:hover{
+  transform: translateY(-1px);
+  filter: brightness(0.98);
+}
+
+.wciBtn:active{
+  transform: translateY(0px);
 }
 
 .navCta:hover{
@@ -430,7 +462,9 @@ html[data-theme="light"] .themeToggle{
   border: 1px solid rgba(255,255,255,0.28);
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(8px);
+   border-radius: 20px;
 }
+
 
 .btnOutline:hover{
   border-color: rgba(255,255,255,0.38);
@@ -439,6 +473,7 @@ html[data-theme="light"] .themeToggle{
 
 .btnSolid{
   background: var(--cyan);
+  border-radius: 20px;
   color: #001013;
   border: 1px solid rgba(0,0,0,0.20);
 }
@@ -455,14 +490,32 @@ html[data-theme="light"] .themeToggle{
 
 /* ---------------- Global Experience (below hero) ---------------- */
 .globalExp{
-   width: 100%;
+  width: 100%;
   background: var(--home-section-bg);
   color: var(--text-strong);
   padding: clamp(46px, 6vw, 84px) 0;
   position: relative;
+  overflow: hidden;
 }
 
-.globalExpInner{
+.globalExp::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../assets/experience.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  opacity: 0.3; 
+}
+
+.globalExpInner {
+  position: relative;
+  z-index: 1;
   width: min(var(--page-max), calc(100% - 40px));
   margin: 0 auto;
   text-align: center;
@@ -696,10 +749,12 @@ html[data-theme="light"] .themeToggle{
 
 .expCard{
   margin-top: 14px;
-  background: var(--surface);
-  border: 1px solid var(--surface-border);
-  border-radius: 16px;
-  padding: 18px;
+  background: var(--home-card-bg);
+  border: 1px solid var(--home-card-border);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
 }
 
 .expSection + .expSection{ margin-top: 18px; }
@@ -1094,3 +1149,5 @@ body.mobile-menu-open {
     margin-left: 0;
   }
 }
+
+

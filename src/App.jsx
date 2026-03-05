@@ -7,6 +7,7 @@ import Insight from './pages/Insight.jsx'
 import Contact from './pages/Contact.jsx'
 import Expertise from './pages/Expertise.jsx'
 import 'animate.css/animate.min.css';
+import 'particles.js';
 export default function App() {
   return (
     <Routes>

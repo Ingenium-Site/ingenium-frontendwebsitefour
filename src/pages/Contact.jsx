@@ -1,15 +1,19 @@
 import PageHeader from "../components/PageHeader.jsx";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Footer from "../components/Footer/Footer.jsx"; 
 import "./contact.css";
 
 export default function Contact() {
+  const [searchParams] = useSearchParams();
+  const servicesFromUrl = searchParams.get("services") || "";
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    subject: "",
-    message: "",
+    subject: servicesFromUrl ? "Services Inquiry" : "",
+    message: servicesFromUrl ? `Interested services: ${servicesFromUrl}\n\n` : "",
   });
 
   const [successMessageVisible, setSuccessMessageVisible] = useState(false);

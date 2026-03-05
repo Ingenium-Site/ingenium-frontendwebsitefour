@@ -3,6 +3,7 @@ import { useParams, Navigate } from "react-router-dom"
 import PageHeader from "../components/PageHeader.jsx"
 import Footer from "../components/Footer/Footer.jsx"
 import { expertisePackages, bespokePackage } from "../data/expertisePackages.js"
+import AnimateOnScroll from "../components/AnimateOnScroll.jsx"
 
 import {
   BadgeCheck,
@@ -69,19 +70,22 @@ export default function Expertise() {
 
           {isBespoke ? (
             <>
-              <div className="expCard">
-                {data.intro?.map((p) => (
-                  <p className="expParagraph" key={p}>
-                    {p}
-                  </p>
-                ))}
-              </div>
+              <AnimateOnScroll animation="fadeInUp" delay={40}>
+                <div className="expCard">
+                  {data.intro?.map((p) => (
+                    <p className="expParagraph" key={p}>
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              </AnimateOnScroll>
 
               <div className="expCategoryGrid" aria-label="Bespoke categories">
                 {data.categories.map((cat) => {
                   const CatIcon = iconMap?.[cat.key] || Boxes
                   return (
-                    <section className="expCategory" key={cat.key}>
+                    <AnimateOnScroll key={cat.key} animation="fadeInUp" delay={80}>
+                      <section className="expCategory">
                       <div className="expCategoryHead">
                         <div className="expCategoryIcon" aria-hidden="true">
                           <CatIcon size={28} strokeWidth={1.5} />
@@ -90,38 +94,45 @@ export default function Expertise() {
                       </div>
 
                       {cat.blocks.map((blk) => (
-                        <div className="expCard" key={blk.heading}>
-                          <h3 className="expH3">{blk.heading}</h3>
-                          <BulletList items={blk.items} />
-                          {blk.outcome ? (
-                            <p className="expOutcome">
-                              <strong>Outcome:</strong> {blk.outcome}
-                            </p>
-                          ) : null}
-                        </div>
+                        <AnimateOnScroll key={blk.heading} animation="fadeInUp" delay={120}>
+                          <div className="expCard">
+                            <h3 className="expH3">{blk.heading}</h3>
+                            <BulletList items={blk.items} />
+                            {blk.outcome ? (
+                              <p className="expOutcome">
+                                <strong>Outcome:</strong> {blk.outcome}
+                              </p>
+                            ) : null}
+                          </div>
+                        </AnimateOnScroll>
                       ))}
-                    </section>
+                      </section>
+                    </AnimateOnScroll>
                   )
                 })}
               </div>
             </>
           ) : (
             <>
-              <div className="expCard">
-                {data.sections?.map((sec) => (
-                  <section key={sec.heading} className="expSection">
-                    <h2 className="expH2">{sec.heading}</h2>
-                    <BulletList items={sec.items} />
-                  </section>
-                ))}
-              </div>
+              <AnimateOnScroll animation="fadeInUp" delay={40}>
+                <div className="expCard">
+                  {data.sections?.map((sec) => (
+                    <section key={sec.heading} className="expSection">
+                      <h2 className="expH2">{sec.heading}</h2>
+                      <BulletList items={sec.items} />
+                    </section>
+                  ))}
+                </div>
+              </AnimateOnScroll>
 
               {data.outcome ? (
-                <div className="expCard">
-                  <p className="expOutcome">
-                    <strong>Outcome:</strong> {data.outcome}
-                  </p>
-                </div>
+                <AnimateOnScroll animation="fadeInUp" delay={80}>
+                  <div className="expCard">
+                    <p className="expOutcome">
+                      <strong>Outcome:</strong> {data.outcome}
+                    </p>
+                  </div>
+                </AnimateOnScroll>
               ) : null}
             </>
           )}

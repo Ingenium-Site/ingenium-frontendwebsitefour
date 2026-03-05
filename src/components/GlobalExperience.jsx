@@ -3,16 +3,11 @@ import Reveal from '../components/Reveal.jsx'
 import AnimateOnScroll from '../components/AnimateOnScroll.jsx'
 import TextMorph from '../components/TextMorph.jsx'
 
-/**
- * GlobalExperience
- * - White background section beneath the Hero
- * - Fully responsive (stacks cards on mobile)
- */
-export default function GlobalExperience() {
+export default function GlobalExperience({ resetAnimations }) {
   return (
     <section className="globalExp" aria-label="Global experience">
       <div className="globalExpInner">
-        <AnimateOnScroll animation="fadeInUp" speed="normal">
+        <AnimateOnScroll animation="fadeInUp" speed="normal" resetKey={resetAnimations}>
           <div> 
             <h2 className="globalExpTitle">Global Experience</h2>
             <p className="globalExpSub">
@@ -22,7 +17,7 @@ export default function GlobalExperience() {
         </AnimateOnScroll>
         
         <div className="globalExpCards">
-          <AnimateOnScroll animation="fadeInUp" delay={100} speed="normal">
+          <AnimateOnScroll animation="fadeInUp" delay={100} speed="normal" resetKey={resetAnimations}>
             <div> 
               <article className="globalExpCard">
                 <h4 className="globalExpCardTitleTop">We operate from within the problem, then govern execution to measurable outcomes.</h4>
@@ -32,7 +27,7 @@ export default function GlobalExperience() {
             </div>
           </AnimateOnScroll>
           
-          <AnimateOnScroll animation="zoomInRight" delay={300} speed="normal">
+          <AnimateOnScroll animation="zoomInRight" delay={300} speed="normal" resetKey={resetAnimations}>
             <div> 
               <article className="globalExpCard">
                 <h4 className="globalExpCardTitleTop">We operate from within the problem, then govern execution to measurable outcomes.</h4>

@@ -1,19 +1,52 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./footer.css";
 import { FaInstagram, FaFacebookF, FaYoutube, FaLinkedinIn } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import footerLogo from '../../assets/ingenium-logo-full1.jpeg';
 
 const Footer = () => {
   const year = new Date().getFullYear();
+  const [isVisible, setIsVisible] = useState(false);
+  const footerRef = useRef(null);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Show button when footer enters the viewport
+        setIsVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.1, // Trigger when 10% of footer is visible
+        rootMargin: '0px 0px -20% 0px' // Adjust trigger point
+      }
+    );
+
+    if (footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => {
+      if (footerRef.current) {
+        observer.unobserve(footerRef.current);
+      }
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   return (
-    <footer className="footer" aria-label="Site footer">
+    <footer ref={footerRef} className="footer" aria-label="Site footer">
       <div className="footer__container">
         {/* Left: Logo + text */}
         <div className="footer__brand">
           <img
             className="footer__logo"
-            src="/images/ingenium-footer-logo.png"
+            src={footerLogo}
             alt="Ingenium"
             loading="lazy"
           />
@@ -75,7 +108,7 @@ const Footer = () => {
         <div className="footer__social" aria-label="Social links">
           <a
             className="footer__socialBtn"
-            href="https://instagram.com/"
+            href="https://www.instagram.com/ingeniumhub?igsh=MTk5MWptMXZqeDYxMg%3D%3D&utm_source=qr"
             target="_blank"
             rel="noreferrer"
             aria-label="Instagram"
@@ -86,7 +119,7 @@ const Footer = () => {
 
           <a
             className="footer__socialBtn"
-            href="https://facebook.com/"
+            href="https://www.facebook.com/share/186SqipaQU/?mibextid=wwXIfr"
             target="_blank"
             rel="noreferrer"
             aria-label="Facebook"
@@ -97,7 +130,7 @@ const Footer = () => {
 
           <a
             className="footer__socialBtn"
-            href="https://x.com/"
+            href="https://x.com/ingeniumhub?s=21"
             target="_blank"
             rel="noreferrer"
             aria-label="X (Twitter)"
@@ -108,7 +141,7 @@ const Footer = () => {
 
           <a
             className="footer__socialBtn"
-            href="https://youtube.com/"
+            href="https://youtube.com/@ingeniumhq?si=S6fFL9sG0bo4A1sN"
             target="_blank"
             rel="noreferrer"
             aria-label="YouTube"
@@ -129,6 +162,16 @@ const Footer = () => {
           </a>
         </div>
       </div>
+
+      {/* Floating Back to Top Button */}
+      <button 
+        className={`floating-back-to-top-btn ${isVisible ? 'show' : ''}`}
+        onClick={scrollToTop}
+        title="Go to top"
+        aria-label="Back to top"
+      >
+        ↑
+      </button>
     </footer>
   );
 };

@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import HeroFlowmap from './HeroFlowmap.jsx'
 import 'particles.js'
 import heroArtwork from '../assets/hero-artwork.png'
-import logoFull from '../assets/ingenium-logo-full.jpeg'
+import logoFull from '../assets/ingenium-logo-full.png'
 import ingeniumHeaderVideo from '../assets/IngeniumHeaderWebsite.mp4' 
 
 export default function Hero({ videoSrc = '' }) {
@@ -113,7 +113,7 @@ export default function Hero({ videoSrc = '' }) {
           )}
         </div>
 
-        <h1 className="heroTitle">Build with Ingenium</h1>
+        <h1 className="heroTitle">Build with Us</h1>
 
         <p className="heroSubtitle">
           We are a strategy-led creative and digital agency that helps businesses develop immersive and engaging user

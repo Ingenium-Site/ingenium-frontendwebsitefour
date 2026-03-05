@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import navLogo from "../assets/ingenium-nav-logo.png";
-import navLogoBlack from "../assets/ingenium-nav-logo-black.png";
+import navLogoBlack from "../assets/ingenium-nav-logo.png";
 import { useTheme } from "../theme/ThemeProvider.jsx";
 
 export default function Navbar() {

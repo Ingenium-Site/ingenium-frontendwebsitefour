@@ -40,7 +40,7 @@ body[data-theme="light"] .oeTitle,
 :root[data-theme="light"] .oeCardTitle,
 body[data-theme="light"] .oeCardTitle,
 .light .oeCardTitle {
-  color: #000000; /* Black text in light mode */
+  color: #f25315; /* Black text in light mode */
 }
 
 :root[data-theme="light"] .oeCardText,
@@ -72,7 +72,7 @@ body[data-theme="dark"] .oeTitle,
 :root[data-theme="dark"] .oeCardTitle,
 body[data-theme="dark"] .oeCardTitle,
 .dark .oeCardTitle {
-  color: rgba(255, 255, 255, 0.95);
+  color: #C9A227;
 }
 
 :root[data-theme="dark"] .oeCardText,
@@ -85,20 +85,27 @@ body[data-theme="dark"] .oeCardText,
 :root[data-theme="light"] .oeIconCircle,
 body[data-theme="light"] .oeIconCircle,
 .light .oeIconCircle {
-  border-color: #3fe8f1;
+  border-color: #887280;
 }
 
 /* Make sure icons adapt to theme */
 :root[data-theme="light"] .oeIconCircle svg,
 body[data-theme="light"] .oeIconCircle svg,
 .light .oeIconCircle svg {
-  color: #000000;
+  color: #887280;
 }
 
 :root[data-theme="dark"] .oeIconCircle svg,
 body[data-theme="dark"] .oeIconCircle svg,
 .dark .oeIconCircle svg {
-  color: #ffffff;
+  color: #00A3FF;
+}
+
+/* For dark theme icons */
+:root[data-theme="dark"] .oeIconCircle,
+body[data-theme="dark"] .oeIconCircle,
+.dark .oeIconCircle {
+  border-color: #00A3FF;
 }
 
 
@@ -199,6 +206,7 @@ body[data-theme="dark"] .oeIconCircle svg,
   border-radius: 999px;
   cursor: pointer;
   background: none;
+   text-decoration: none;
   border: 2px solid #ffffff3b; /* fixed */
   color: #ffffff;
   font-weight: 800;

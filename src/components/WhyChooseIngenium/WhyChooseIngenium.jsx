@@ -2,12 +2,12 @@ import React from "react";
 import AnimateOnScroll from '../AnimateOnScroll'; 
 import "./whyChooseIngenium.css";
 
-const WhyChooseIngenium = () => {
+const WhyChooseIngenium = ({ resetAnimations }) => {
   return (
     <section className="wciSection" id="why-choose-ingenium">
       <div className="wciContainer">
-        {/* Left */}
-        <AnimateOnScroll animation="fadeInUp" speed="normal">
+        {/* Left - Add animation to this section too */}
+        <AnimateOnScroll animation="fadeInLeft" delay={100} speed="normal" resetKey={resetAnimations}>
           <div className="wciLeft">
             <div className="wciPill">Why Choose Ingenium</div>
 
@@ -39,7 +39,7 @@ const WhyChooseIngenium = () => {
 
         {/* Right - Add individual animations to each card */}
         <div className="wciRight">
-          <AnimateOnScroll animation="fadeInUp" delay={100} speed="normal">
+          <AnimateOnScroll animation="fadeInUp" delay={200} speed="normal" resetKey={resetAnimations}>
             <article className="wciCard">
               <h3 className="wciCardTitle">Data-Driven Approach</h3>
               <p className="wciCardText">
@@ -52,7 +52,7 @@ const WhyChooseIngenium = () => {
             </article>
           </AnimateOnScroll>
 
-          <AnimateOnScroll animation="fadeInUp" delay={200} speed="normal">
+          <AnimateOnScroll animation="fadeInUp" delay={300} speed="normal" resetKey={resetAnimations}>
             <article className="wciCard">
               <h3 className="wciCardTitle">Creative &amp; Innovative</h3>
               <p className="wciCardText">
@@ -65,7 +65,7 @@ const WhyChooseIngenium = () => {
             </article>
           </AnimateOnScroll>
 
-          <AnimateOnScroll animation="fadeInUp" delay={300} speed="normal">
+          <AnimateOnScroll animation="fadeInUp" delay={400} speed="normal" resetKey={resetAnimations}>
             <article className="wciCard">
               <h3 className="wciCardTitle">Transparent Reporting</h3>
               <p className="wciCardText">
