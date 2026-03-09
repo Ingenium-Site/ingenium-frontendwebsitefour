@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AnimateOnScroll from "../AnimateOnScroll";
 import "./whyChooseIngenium.css";
+import whyChooseImage from "../../assets/why-choose-ingenium.png";
 
 const WhyChooseIngenium = ({ resetAnimations }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -43,8 +44,8 @@ const WhyChooseIngenium = ({ resetAnimations }) => {
       <div className="wciImageCard" aria-hidden="true">
         <img
           className="wciImage"
-          src="/images/why-choose-ingenium.png"
-          alt=""
+         src={whyChooseImage}  
+           alt="Why choose Ingenium visual representation"
           loading="lazy"
         />
       </div>
