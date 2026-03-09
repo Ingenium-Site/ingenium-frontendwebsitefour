@@ -7,6 +7,7 @@ import { useTheme } from "../theme/ThemeProvider.jsx";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hoveredDropdown, setHoveredDropdown] = useState(null); // Track which dropdown is hovered
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
@@ -33,6 +34,19 @@ export default function Navbar() {
   const openMenu = () => setMobileMenuOpen(true);
   const closeMenu = () => setMobileMenuOpen(false);
   const toggleMenu = () => setMobileMenuOpen((v) => !v);
+
+  // Handle dropdown hover for desktop
+  const handleMouseEnter = (dropdownName) => {
+    if (window.innerWidth >= 768) { // Only for desktop
+      setHoveredDropdown(dropdownName);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (window.innerWidth >= 768) { // Only for desktop
+      setHoveredDropdown(null);
+    }
+  };
 
   // Optional: close on Escape
   useEffect(() => {
@@ -112,10 +126,50 @@ export default function Navbar() {
           </NavLink>
           <NavLink to="/about" className={({ isActive }) => (isActive ? "active" : undefined)}>
             About
-          </NavLink>
-          <NavLink to="/insight" className={({ isActive }) => (isActive ? "active" : undefined)}>
-            Insight
-          </NavLink>
+          </NavLink> 
+          
+         <NavLink to="/integrity" className={({ isActive }) => (isActive ? "active" : undefined)}>
+          Integrity
+        </NavLink>
+
+         {/* Impact Dropdown */}
+          <div 
+            className="nav-dropdown"
+            onMouseEnter={() => handleMouseEnter('impact')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <NavLink 
+              to="/impact" 
+              className={({ isActive }) => (isActive || hoveredDropdown === 'impact' ? "active" : undefined)}
+            >
+              Impact
+            </NavLink>
+            {hoveredDropdown === 'impact' && (
+              <div className="dropdown-menu">
+                <NavLink to="/portfolio" className="dropdown-item">Portfolio</NavLink>
+              </div>
+            )}
+          </div>
+
+         {/* The Engine Dropdown */}
+          <div 
+            className="nav-dropdown"
+            onMouseEnter={() => handleMouseEnter('engine')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <NavLink 
+              to="/the-engine" 
+              className={({ isActive }) => (isActive || hoveredDropdown === 'engine' ? "active" : undefined)}
+            >
+              The Engine
+            </NavLink>
+            {hoveredDropdown === 'engine' && (
+              <div className="dropdown-menu">
+                <NavLink to="/brand-system" className="dropdown-item">Brand System</NavLink>
+                <NavLink to="/how-we-think" className="dropdown-item">How We Think (IIE)</NavLink>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="navRight">
@@ -195,6 +249,8 @@ export default function Navbar() {
                 </div>
               </div>
 
+
+                {/* Mobile version of Impact dropdown */}
               <div className="mobile-nav-links">
                 <NavLink
                   to="/"
@@ -218,13 +274,64 @@ export default function Navbar() {
                 >
                   About
                 </NavLink>
-                <NavLink
-                  to="/insight"
+                
+                   <NavLink
+                  to="/integrity"
                   className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
                   onClick={closeMenu}
                 >
-                  Insight
+                  Integrity
                 </NavLink>
+                
+                <div className="mobile-dropdown">
+                  <div className="mobile-dropdown-header">
+                    <NavLink
+                      to="/impact"
+                      className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
+                      onClick={closeMenu}
+                    >
+                      Impact
+                    </NavLink>
+                  </div>
+                  <div className="mobile-submenu">
+                    <NavLink
+                      to="/portfolio"
+                      className="mobile-nav-link submenu-item"
+                      onClick={closeMenu}
+                    >
+                      Portfolio
+                    </NavLink>
+                  </div>
+                </div>
+                
+          
+                <div className="mobile-dropdown">
+                  <div className="mobile-dropdown-header">
+                    <NavLink
+                      to="/the-engine"
+                      className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
+                      onClick={closeMenu}
+                    >
+                      The Engine
+                    </NavLink>
+                  </div>
+                  <div className="mobile-submenu">
+                    <NavLink
+                      to="/brand-system"
+                      className="mobile-nav-link submenu-item"
+                      onClick={closeMenu}
+                    >
+                      Brand System
+                    </NavLink>
+                    <NavLink
+                      to="/how-we-think"
+                      className="mobile-nav-link submenu-item"
+                      onClick={closeMenu}
+                    >
+                      How We Think (IIE)
+                    </NavLink>
+                  </div>
+                </div>
 
                 <NavLink className="navCta mobile-nav-cta" to="/contact" onClick={closeMenu}>
                   Contact Us

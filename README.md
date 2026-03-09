@@ -1,7 +1,7 @@
 # Ingenium React Project (Vite + React Router)
 
 This project includes:
-- Sticky navbar (Home, Services, About, Insight, Contact)
+- Sticky navbar (Home, Services, About, Integrity, Contact)
 - Home hero section with the cosmic artwork background + interactive "HeroFlowmap" effect (particles + cursor repulsion + ripple/bubble feel)
 - Looping video slot (white rounded card) placed above the hero title as requested
 - Sora font

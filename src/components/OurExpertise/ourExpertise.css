@@ -135,8 +135,8 @@ body[data-theme="dark"] .oeIconCircle,
 }
 
 .oeTitle {
-  font-size: clamp(40px, 5vw, 64px); /* Increased font size */
-  font-weight: 600;
+  font-size: clamp(35px, 5vw, 64px); /* Increased font size */
+  font-weight: 800;
   line-height: 1.2; /* Reduced line height for tighter spacing */
   letter-spacing: -0.02em; /* Slight negative tracking for better readability */
   color: rgba(255, 255, 255, 0.96);

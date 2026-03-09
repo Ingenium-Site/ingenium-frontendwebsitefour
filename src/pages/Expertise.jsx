@@ -16,6 +16,7 @@ import {
   Palette,
   MonitorSmartphone,
   Briefcase,
+  Check,
 } from "lucide-react"
 
 const iconMap = {
@@ -34,8 +35,17 @@ const iconMap = {
 function BulletList({ items = [] }) {
   return (
     <ul className="expList">
-      {items.map((t) => (
-        <li key={t}>{t}</li>
+      {items.map((t, idx) => (
+        <li
+          key={t}
+          className="expListItem"
+          style={{ transitionDelay: `${idx * 60}ms` }}
+        >
+          <span className="expListIcon" aria-hidden="true">
+            <Check size={15} strokeWidth={2.6} />
+          </span>
+          <span className="expListText">{t}</span>
+        </li>
       ))}
     </ul>
   )
@@ -71,7 +81,7 @@ export default function Expertise() {
           {isBespoke ? (
             <>
               <AnimateOnScroll animation="fadeInUp" delay={40}>
-                <div className="expCard">
+                <div className="expIntroCard">
                   {data.intro?.map((p) => (
                     <p className="expParagraph" key={p}>
                       {p}
@@ -80,54 +90,54 @@ export default function Expertise() {
                 </div>
               </AnimateOnScroll>
 
-              <div className="expCategoryGrid" aria-label="Bespoke categories">
-                {data.categories.map((cat) => {
-                  const CatIcon = iconMap?.[cat.key] || Boxes
-                  return (
-                    <AnimateOnScroll key={cat.key} animation="fadeInUp" delay={80}>
-                      <section className="expCategory">
+              {data.categories.map((cat) => {
+                const CatIcon = iconMap?.[cat.key] || Boxes
+                return (
+                  <section key={cat.key} className="expCatSection">
+                    <AnimateOnScroll animation="fadeInUp" delay={60}>
                       <div className="expCategoryHead">
                         <div className="expCategoryIcon" aria-hidden="true">
                           <CatIcon size={28} strokeWidth={1.5} />
                         </div>
                         <h2 className="expH2">{cat.title}</h2>
                       </div>
+                    </AnimateOnScroll>
 
-                      {cat.blocks.map((blk) => (
-                        <AnimateOnScroll key={blk.heading} animation="fadeInUp" delay={120}>
-                          <div className="expCard">
-                            <h3 className="expH3">{blk.heading}</h3>
+                    <div className="expCardGrid">
+                      {cat.blocks.map((blk, idx) => (
+                        <AnimateOnScroll key={blk.heading} animation="fadeInUp" delay={80 + idx * 80}>
+                          <article className="expGridCard">
+                            <h3 className="expGridCardTitle">{blk.heading}</h3>
                             <BulletList items={blk.items} />
                             {blk.outcome ? (
                               <p className="expOutcome">
                                 <strong>Outcome:</strong> {blk.outcome}
                               </p>
                             ) : null}
-                          </div>
+                          </article>
                         </AnimateOnScroll>
                       ))}
-                      </section>
-                    </AnimateOnScroll>
-                  )
-                })}
-              </div>
+                    </div>
+                  </section>
+                )
+              })}
             </>
           ) : (
             <>
-              <AnimateOnScroll animation="fadeInUp" delay={40}>
-                <div className="expCard">
-                  {data.sections?.map((sec) => (
-                    <section key={sec.heading} className="expSection">
-                      <h2 className="expH2">{sec.heading}</h2>
+              <div className="expCardGrid">
+                {data.sections?.map((sec, idx) => (
+                  <AnimateOnScroll key={sec.heading} animation="fadeInUp" delay={40 + idx * 80}>
+                    <article className="expGridCard">
+                      <h2 className="expGridCardTitle">{sec.heading}</h2>
                       <BulletList items={sec.items} />
-                    </section>
-                  ))}
-                </div>
-              </AnimateOnScroll>
+                    </article>
+                  </AnimateOnScroll>
+                ))}
+              </div>
 
               {data.outcome ? (
                 <AnimateOnScroll animation="fadeInUp" delay={80}>
-                  <div className="expCard">
+                  <div className="expOutcomeCard">
                     <p className="expOutcome">
                       <strong>Outcome:</strong> {data.outcome}
                     </p>

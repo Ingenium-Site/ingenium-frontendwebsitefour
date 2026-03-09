@@ -1,43 +1,67 @@
-import React from "react";
-import AnimateOnScroll from '../AnimateOnScroll'; 
+import React, { useEffect, useState } from "react";
+import AnimateOnScroll from "../AnimateOnScroll";
 import "./whyChooseIngenium.css";
 
 const WhyChooseIngenium = ({ resetAnimations }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return undefined;
+
+    const mobileQuery = window.matchMedia("(max-width: 760px)");
+    const syncMobile = () => setIsMobile(mobileQuery.matches);
+
+    syncMobile();
+
+    if (typeof mobileQuery.addEventListener === "function") {
+      mobileQuery.addEventListener("change", syncMobile);
+      return () => mobileQuery.removeEventListener("change", syncMobile);
+    }
+
+    mobileQuery.addListener(syncMobile);
+    return () => mobileQuery.removeListener(syncMobile);
+  }, []);
+
+  const leftContent = (
+    <div className="wciLeft">
+      <div className="wciPill">Why Choose Ingenium</div>
+
+      <h2 className="wciTitle">
+        <span className="wciTitleMuted">The Difference</span>
+        <br />
+        Clarity, Craft,
+        <br />
+        Results
+      </h2>
+
+      <p className="wciSubtitle">
+        We operate at the intersection where ideas are made practical and
+        creativity is held to professional standards so the work performs
+        over time, not just at launch.
+      </p>
+
+      <div className="wciImageCard" aria-hidden="true">
+        <img
+          className="wciImage"
+          src="/images/why-choose-ingenium.png"
+          alt=""
+          loading="lazy"
+        />
+      </div>
+    </div>
+  );
+
   return (
     <section className="wciSection" id="why-choose-ingenium">
       <div className="wciContainer">
-        {/* Left - Add animation to this section too */}
-        <AnimateOnScroll animation="fadeInLeft" delay={100} speed="normal" resetKey={resetAnimations}>
-          <div className="wciLeft">
-            <div className="wciPill">Why Choose Ingenium</div>
+        {isMobile ? (
+          leftContent
+        ) : (
+          <AnimateOnScroll animation="fadeInLeft" delay={100} speed="normal" resetKey={resetAnimations}>
+            {leftContent}
+          </AnimateOnScroll>
+        )}
 
-            <h2 className="wciTitle">
-              <span className="wciTitleMuted">The Difference</span>
-              <br />
-              Clarity, Craft,
-              <br />
-              Results
-            </h2>
-
-            <p className="wciSubtitle">
-              We operate at the intersection where ideas are made practical and
-              creativity is held to professional standards so the work performs
-              over time, not just at launch.
-            </p>
-
-            <div className="wciImageCard" aria-hidden="true">
-              {/* Replace this src with any image you prefer in your project */}
-              <img
-                className="wciImage"
-                src="/images/why-choose-ingenium.png"
-                alt=""
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </AnimateOnScroll>
-
-        {/* Right - Add individual animations to each card */}
         <div className="wciRight">
           <AnimateOnScroll animation="fadeInUp" delay={200} speed="normal" resetKey={resetAnimations}>
             <article className="wciCard">

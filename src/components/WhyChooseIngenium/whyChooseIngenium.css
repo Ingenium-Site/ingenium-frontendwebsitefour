@@ -98,14 +98,14 @@ body[data-theme="light"] .wciBtn,
   padding: clamp(48px, 6vw, 96px) 0;
 } */
 .wciSection {
-  position: relative; /* Needed for proper particle positioning */
+  position: relative;
   width: 100%;
   padding: clamp(48px, 6vw, 96px) 0;
   background-image: url('../../assets/why.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  overflow: hidden; /* Contain particles within section */
+  overflow: clip; /* contain particles without breaking animations/fixed elements */
 }
 
 .wciSection::before {
@@ -121,7 +121,7 @@ body[data-theme="light"] .wciBtn,
 
 .wciContainer {
   position: relative;
-  z-index: 1; /* Ensure content appears above the overlay */
+  z-index: 2; /* Ensure content appears above the overlay */
   width: min(1200px, calc(100% - 40px));
   margin: 0 auto;
   display: grid;
@@ -131,8 +131,12 @@ body[data-theme="light"] .wciBtn,
   align-items: stretch;
 }
 
+
 .wciLeft {
   min-width: 0;
+  display: block;
+  position: relative;
+  z-index: 2;
 }
 
 .wciPill {
@@ -269,12 +273,27 @@ body[data-theme="dark"] .wciBtn:hover,
     grid-template-columns: 1fr;
   }
 
+  .wciSection {
+    overflow: visible;
+  }
+
+  .wciLeft,
+  .wciRight {
+    width: 100%;
+  }
+
   .wciRight {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 760px){
+  .wciSection{ overflow: visible; }
+  .wciContainer{ gap: 22px; }
+  .wciLeft{ display: block !important; opacity: 1 !important; visibility: visible !important; transform: none !important; animation: none !important; }
+  .wciTitle{ font-size: clamp(30px, 10vw, 42px); }
+  .wciSubtitle{ max-width: none; }
+  .wciImageCard{ margin-top: 16px; }
   .wciRight{ gap: 18px; }
   .wciCard{ padding: 22px; }
 }

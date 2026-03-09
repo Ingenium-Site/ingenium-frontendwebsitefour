@@ -1,15 +1,44 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { X, Search, ArrowRight } from "lucide-react";
+import { X, Search, ArrowRight, BadgeCheck, Globe, Mic, Megaphone, Rocket, Boxes } from "lucide-react";
 import { Link } from "react-router-dom";
 import { services as allServices } from "../../data/services";
+import { expertisePackages, bespokePackage } from "../../data/expertisePackages";
 import "./servicePicker.css";
+
+/* Build expertise items in the same shape as allServices */
+const expertiseIconMap = {
+  "corporate-brand-package": BadgeCheck,
+  "corporate-website-package": Globe,
+  "executive-communications": Mic,
+  "authority-social-media-retainer": Megaphone,
+  "launch-campaign": Rocket,
+};
+
+const expertiseServiceItems = [
+  ...Object.entries(expertisePackages).map(([slug, pkg]) => ({
+    key: slug,
+    name: pkg.title,
+    desc: pkg.subtitle,
+    icon: expertiseIconMap[slug] || Boxes,
+    products: pkg.sections?.map((s) => s.heading) || [],
+  })),
+  {
+    key: "ingenium-bespoke-package",
+    name: bespokePackage.title,
+    desc: bespokePackage.subtitle,
+    icon: Boxes,
+    products: bespokePackage.categories?.map((c) => c.title) || [],
+  },
+];
+
+const combinedServices = [...allServices, ...expertiseServiceItems];
 
 export default function ServicePickerModal({
   open,
   onClose,
   value = [],
   onChange,
-  max = 10,
+  max = 16,
   title = "Services provided",
 }) {
   const [query, setQuery] = useState("");
@@ -20,8 +49,8 @@ export default function ServicePickerModal({
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return allServices;
-    return allServices.filter((s) => s.name.toLowerCase().includes(q));
+    if (!q) return combinedServices;
+    return combinedServices.filter((s) => s.name.toLowerCase().includes(q));
   }, [query]);
 
   const selectedSet = useMemo(() => new Set(selected.map((s) => s.key)), [selected]);

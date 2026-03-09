@@ -6,8 +6,33 @@ import Footer from "../components/Footer/Footer";
 import { useState, useEffect } from 'react';
 import ServicePickerModal from "../components/ServicePicker/ServicePickerModal.jsx";
 import { services as allServices } from "../data/services";
-import { Sparkles } from "lucide-react";
+import { expertisePackages, bespokePackage } from "../data/expertisePackages";
+import { Sparkles, BadgeCheck, Globe, Mic, Megaphone, Rocket, Boxes } from "lucide-react";
 import "./homeServicesPrompt.css";
+
+/* Build combined list so localStorage rehydration finds expertise packages too */
+const expertiseIconMap = {
+  "corporate-brand-package": BadgeCheck,
+  "corporate-website-package": Globe,
+  "executive-communications": Mic,
+  "authority-social-media-retainer": Megaphone,
+  "launch-campaign": Rocket,
+};
+const combinedServices = [
+  ...allServices,
+  ...Object.entries(expertisePackages).map(([slug, pkg]) => ({
+    key: slug,
+    name: pkg.title,
+    desc: pkg.subtitle,
+    icon: expertiseIconMap[slug] || Boxes,
+  })),
+  {
+    key: "ingenium-bespoke-package",
+    name: bespokePackage.title,
+    desc: bespokePackage.subtitle,
+    icon: Boxes,
+  },
+];
 
 export default function Home() {
   // Optional: set this to a real file like "/videos/hero-loop.mp4"
@@ -22,7 +47,7 @@ export default function Home() {
       if (!raw) return [];
       const parsed = JSON.parse(raw);
       if (!Array.isArray(parsed)) return [];
-      const allowed = new Map(allServices.map((s) => [s.key, s]));
+      const allowed = new Map(combinedServices.map((s) => [s.key, s]));
       return parsed.map((k) => allowed.get(k)).filter(Boolean);
     } catch {
       return [];
@@ -81,21 +106,25 @@ export default function Home() {
       <OurExpertise resetAnimations={resetAnimations} />
 
       {/* Floating services trigger (icon only) */}
-      <button
+      {/* <button
         type="button"
         className="homeServicesFloat"
         onClick={() => setServicesOpen(true)}
         aria-label="Open services picker"
         title="What do you need?"
       >
-        <span className="homeServicesFloat__icon" aria-hidden="true">
-          <Sparkles size={22} strokeWidth={1.7} />
-        </span>
+      
         <span className="homeServicesFloat__label" aria-hidden="true">
           <span className="homeServicesFloat__title">What do you need?</span>
           <span className="homeServicesFloat__sub">Pick services and continue to Contact</span>
         </span>
-      </button>
+      </button> */}
+
+  <span className="homeServicesFloat__icon homeServicesFloat " aria-hidden="true"
+  onClick={() => setServicesOpen(true)}>
+          <Sparkles size={22} strokeWidth={1.7} />
+        </span>
+
 
       <WhyChooseIngenium resetAnimations={resetAnimations} />
       <Footer resetAnimations={resetAnimations} />  
