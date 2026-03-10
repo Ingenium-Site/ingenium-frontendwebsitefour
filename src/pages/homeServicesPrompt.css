@@ -9,7 +9,7 @@
   align-items: center;
   gap: 12px;
 
-  padding: 10px 12px;
+  padding: 6px 8px;
   border-radius: 999px;
   border: 1px solid var(--surface-border);
   background: color-mix(in srgb, var(--surface) 86%, transparent);
@@ -68,6 +68,10 @@
   line-height: 1.2;
 }
 
+.homeAfterHeroMarker{
+  height: 1px;
+}
+
 @media (max-width: 520px){
   .homeServicesFloat{ right: 12px; }
   .homeServicesFloat:hover{ width: min(330px, calc(100vw - 24px)); }
@@ -75,4 +79,59 @@
 
 @media (prefers-reduced-motion: reduce){
   .homeServicesFloat__label{ transition: none; }
+}
+
+
+/* Animation on Sparkles */
+
+@keyframes gentlePulse {
+  0% {
+    transform: translateY(-50%) scale(1);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.28);
+  }
+  50% {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 22px 55px rgba(201, 162, 38, 0.4);
+  }
+  100% {
+    transform: translateY(-50%) scale(1);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.28);
+  }
+}
+
+@keyframes floatGentle {
+  0% {
+    transform: translateY(-50%);
+  }
+  50% {
+    transform: translateY(-53%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+/* Combined animation */
+.homeServicesFloat--animated {
+  animation: floatGentle 3s ease-in-out infinite, gentlePulse 2.5s ease-in-out infinite;
+  animation-delay: 0s, 0.5s; /* Stagger the animations slightly */
+}
+
+/* Make sure the icon container allows the animation to show properly */
+.homeServicesFloat--animated .homeServicesFloat__icon {
+  animation: none; /* Reset any conflicting animation on the icon */
+}
+
+/* Simple bounce animation */
+@keyframes simpleBounce {
+  0%, 100% {
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    transform: translateY(-55%) scale(1.05);
+  }
+}
+
+.homeServicesFloat.bounce-animation {
+  animation: simpleBounce 2s ease-in-out infinite;
 }

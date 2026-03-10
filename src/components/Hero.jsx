@@ -5,6 +5,7 @@ import 'particles.js'
 import heroArtwork from '../assets/hero-artwork.png'
 import logoFull from '../assets/ingenium-logo-full.png'
 import ingeniumHeaderVideo from '../assets/IngeniumHeaderWebsite.mp4' 
+import { ChevronDown } from "lucide-react";
 
 export default function Hero({ videoSrc = '' }) {
   // Particles background (repulse) – matches the BannerHomeSection behavior you liked
@@ -76,6 +77,10 @@ export default function Hero({ videoSrc = '' }) {
     }
   }, [])
 
+  const onScrollCueClick = () => {
+    document.getElementById("after-hero")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <section className="hero" aria-label="Home hero">
       <HeroFlowmap image={heroArtwork} opacity={1.2} className="flowmapWrap" />
@@ -128,7 +133,14 @@ export default function Hero({ videoSrc = '' }) {
             Let’s Build Something Great
           </Link>
         </div>
-       
+        <button
+          type="button"
+          className="heroScrollCue"
+          aria-label="Scroll down"
+          onClick={onScrollCueClick}
+        >
+          <ChevronDown size={28} strokeWidth={2} aria-hidden="true" />
+        </button>
       </div>
     </section>
   )

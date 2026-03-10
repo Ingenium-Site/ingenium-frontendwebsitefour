@@ -1,9 +1,10 @@
-import { useMemo, useEffect } from "react"
-import { useParams, Navigate, useNavigate, useLocation } from "react-router-dom"
-import PageHeader from "../components/PageHeader.jsx"
-import Footer from "../components/Footer/Footer.jsx"
-import { expertisePackages, bespokePackage } from "../data/expertisePackages.js"
-import AnimateOnScroll from "../components/AnimateOnScroll.jsx"
+import { useMemo, useEffect, useState } from "react";
+import { useParams, Navigate, useNavigate, useLocation } from "react-router-dom";
+import PageHeader from "../components/PageHeader.jsx";
+import Footer from "../components/Footer/Footer.jsx";
+import { expertisePackages, bespokePackage } from "../data/expertisePackages.js";
+import AnimateOnScroll from "../components/AnimateOnScroll.jsx";
+import { ChevronDown } from "lucide-react"; // Add this import
 
 import {
   BadgeCheck,
@@ -18,7 +19,7 @@ import {
   Briefcase,
   Check,
   ArrowLeft,
-} from "lucide-react"
+} from "lucide-react";
 
 const iconMap = {
   "corporate-brand-package": BadgeCheck,
@@ -31,7 +32,7 @@ const iconMap = {
   creative: Palette,
   digital: MonitorSmartphone,
   advisory: Briefcase,
-}
+};
 
 function BulletList({ items = [] }) {
   return (
@@ -49,33 +50,34 @@ function BulletList({ items = [] }) {
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
 export default function Expertise() {
-  const { slug } = useParams()
-  const navigate = useNavigate()
-  const location = useLocation()
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const isBespoke = slug === "ingenium-bespoke-package"
+  const [showScrollCue, setShowScrollCue] = useState(false);
+
+  const isBespoke = slug === "ingenium-bespoke-package";
   const data = useMemo(() => {
-    if (isBespoke) return bespokePackage
-    return expertisePackages?.[slug]
-  }, [slug, isBespoke])
+    if (isBespoke) return bespokePackage;
+    return expertisePackages?.[slug];
+  }, [slug, isBespoke]);
 
-  if (!data) return <Navigate to="/" replace />
+  if (!data) return <Navigate to="/" replace />;
 
-  const TitleIcon = iconMap?.[slug] || Boxes
+  const TitleIcon = iconMap?.[slug] || Boxes;
 
-  
   // Function to handle back navigation
   const handleBackNavigation = () => {
     // Check the state to determine where the user came from
-    const from = location.state?.from
+    const from = location.state?.from;
     
     if (from === 'homepage') {
       // User came from homepage, navigate to homepage and scroll to section
-      navigate('/')
+      navigate('/');
       // Wait for page to load, then scroll to section
       setTimeout(() => {
         const element = document.getElementById('our-expertise');
@@ -85,12 +87,12 @@ export default function Expertise() {
       }, 100);
     } else if (from === 'services') {
       // User came from services page, navigate to services
-      navigate('/services')
+      navigate('/services');
     } else {
       // Otherwise, just go back to previous page
-      navigate(-1)
+      navigate(-1);
     }
-  }
+  };
 
   // Effect to handle scrolling when component mounts
   useEffect(() => {
@@ -107,6 +109,25 @@ export default function Expertise() {
       return () => clearTimeout(timer);
     }
   }, [location.state]);
+
+  // Function to scroll to bottom of page
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight - window.innerHeight,
+      behavior: "smooth"
+    });
+  };
+
+  // Effect to show/hide scroll cue based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show scroll cue if user has scrolled more than 100px from top
+      setShowScrollCue(window.scrollY > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <main className="page">
@@ -147,7 +168,7 @@ export default function Expertise() {
               </AnimateOnScroll>
 
               {data.categories.map((cat) => {
-                const CatIcon = iconMap?.[cat.key] || Boxes
+                const CatIcon = iconMap?.[cat.key] || Boxes;
                 return (
                   <section key={cat.key} className="expCatSection">
                     <AnimateOnScroll animation="fadeInUp" delay={15}>
@@ -175,7 +196,7 @@ export default function Expertise() {
                       ))}
                     </div>
                   </section>
-                )
+                );
               })}
             </>
           ) : (
@@ -203,9 +224,21 @@ export default function Expertise() {
             </>
           )}
         </div>
+        
+        {/* Scroll down arrow for expertise page */}
+        {showScrollCue && (
+          <button
+            type="button"
+            className="expertise-scroll-cue"
+            aria-label="Scroll to bottom"
+            onClick={scrollToBottom}
+          >
+            <ChevronDown size={28} strokeWidth={2} aria-hidden="true" />
+          </button>
+        )}
       </div>
 
       <Footer />
     </main>
-  )
+  );
 }

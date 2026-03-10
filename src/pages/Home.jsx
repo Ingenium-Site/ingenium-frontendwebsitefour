@@ -3,7 +3,7 @@ import GlobalExperience from '../components/GlobalExperience.jsx'
 import OurExpertise from "../components/OurExpertise/OurExpertise";
 import WhyChooseIngenium from "../components/WhyChooseIngenium/WhyChooseIngenium";
 import Footer from "../components/Footer/Footer";
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ServicePickerModal from "../components/ServicePicker/ServicePickerModal.jsx";
 import { services as allServices } from "../data/services";
 import { expertisePackages, bespokePackage } from "../data/expertisePackages";
@@ -41,6 +41,8 @@ export default function Home() {
   const [resetAnimations, setResetAnimations] = useState(false);
 
   const [servicesOpen, setServicesOpen] = useState(false);
+  const servicesPopupShownRef = useRef(false);
+  const servicesPopupAutoRef = useRef({ timeoutId: null, removeListeners: null });
   const [selectedServices, setSelectedServices] = useState(() => {
     try {
       const raw = window.localStorage.getItem("selectedServices");
@@ -77,64 +79,85 @@ export default function Home() {
     }
   }, [selectedServices]);
 
-  // Auto-popup between 30s and 60s, once per session.
+  // Auto-popup between 30s and 60s, once per Home page visit.
+  // Do not show while the page/tab is inactive (hidden or unfocused).
   useEffect(() => {
-    try {
-      const already = window.sessionStorage.getItem("servicesPopupShown");
-      if (already === "1") return;
-    } catch {
-      // ignore
-    }
+    if (servicesPopupShownRef.current) return;
+
+    const isPageActive = () => document.visibilityState === "visible";
+
+    const showIfActive = () => {
+      if (servicesPopupShownRef.current) return;
+      if (!isPageActive()) return;
+      servicesPopupShownRef.current = true;
+      setServicesOpen(true);
+      servicesPopupAutoRef.current.timeoutId = null;
+      servicesPopupAutoRef.current.removeListeners?.();
+      servicesPopupAutoRef.current.removeListeners = null;
+    };
+
+    const onActive = () => showIfActive();
+    window.addEventListener("focus", onActive);
+    document.addEventListener("visibilitychange", onActive);
+    servicesPopupAutoRef.current.removeListeners = () => {
+      window.removeEventListener("focus", onActive);
+      document.removeEventListener("visibilitychange", onActive);
+    };
 
     const delay = 30000 + Math.floor(Math.random() * 30001);
-    const id = window.setTimeout(() => {
-      try {
-        window.sessionStorage.setItem("servicesPopupShown", "1");
-      } catch {
-        // ignore
-      }
-      setServicesOpen(true);
+    servicesPopupAutoRef.current.timeoutId = window.setTimeout(() => {
+      // Arm the popup; if the page is active now, show immediately, otherwise wait for focus/visibility.
+      showIfActive();
     }, delay);
 
-    return () => window.clearTimeout(id);
+    return () => {
+      if (servicesPopupAutoRef.current.timeoutId != null) {
+        window.clearTimeout(servicesPopupAutoRef.current.timeoutId);
+        servicesPopupAutoRef.current.timeoutId = null;
+      }
+      servicesPopupAutoRef.current.removeListeners?.();
+      servicesPopupAutoRef.current.removeListeners = null;
+    };
   }, []);
 
-  return (
-    <>
-      <Hero videoSrc={videoSrc} resetAnimations={resetAnimations} />
-      <GlobalExperience resetAnimations={resetAnimations} />
-      <OurExpertise resetAnimations={resetAnimations} />
+  // If the user opens it manually before the timer, count it as "shown" and cancel auto logic.
+  useEffect(() => {
+    if (!servicesOpen) return;
+    servicesPopupShownRef.current = true;
+    if (servicesPopupAutoRef.current.timeoutId != null) {
+      window.clearTimeout(servicesPopupAutoRef.current.timeoutId);
+      servicesPopupAutoRef.current.timeoutId = null;
+    }
+    servicesPopupAutoRef.current.removeListeners?.();
+    servicesPopupAutoRef.current.removeListeners = null;
+  }, [servicesOpen]);
 
-      {/* Floating services trigger (icon only) */}
-      {/* <button
-        type="button"
-        className="homeServicesFloat"
-        onClick={() => setServicesOpen(true)}
-        aria-label="Open services picker"
-        title="What do you need?"
-      >
-      
-        <span className="homeServicesFloat__label" aria-hidden="true">
-          <span className="homeServicesFloat__title">What do you need?</span>
-          <span className="homeServicesFloat__sub">Pick services and continue to Contact</span>
-        </span>
-      </button> */}
+  const [showAnimation, setShowAnimation] = useState(true);
 
-  <span className="homeServicesFloat__icon homeServicesFloat " aria-hidden="true"
-  onClick={() => setServicesOpen(true)}>
-          <Sparkles size={22} strokeWidth={1.7} />
-        </span>
+ return (
+  <>
+    <Hero videoSrc={videoSrc} resetAnimations={resetAnimations} />
+    <div id="after-hero" className="homeAfterHeroMarker" aria-hidden="true" />
+    <GlobalExperience resetAnimations={resetAnimations} />
+    <OurExpertise resetAnimations={resetAnimations} />
 
+   <span 
+      className={`homeServicesFloat__icon homeServicesFloat homeServicesFloat--animated`} 
+      aria-hidden="true"
+      onClick={() => setServicesOpen(true)}
+    >
+      <Sparkles size={30} strokeWidth={1.9} />
+    </span>
 
-      <WhyChooseIngenium resetAnimations={resetAnimations} />
-      <Footer resetAnimations={resetAnimations} />  
+    <WhyChooseIngenium resetAnimations={resetAnimations} />
+    <Footer resetAnimations={resetAnimations} />  
 
-      <ServicePickerModal
-        open={servicesOpen}
-        onClose={() => setServicesOpen(false)}
-        value={selectedServices}
-        onChange={setSelectedServices}
-      />
-    </>
-  )
+    <ServicePickerModal
+      open={servicesOpen}
+      onClose={() => setServicesOpen(false)}
+      value={selectedServices}
+      onChange={setSelectedServices}
+    />
+  </>
+)
 }

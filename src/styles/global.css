@@ -356,6 +356,38 @@ html[data-theme="light"] .wciBtn{
   gap: 18px;
 }
 
+.heroScrollCue{
+  position: absolute;
+  left: 50%;
+  bottom: -70px;
+  transform: translateX(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(0,0,0,0.22);
+  color: rgba(255,255,255,0.95);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.28);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  animation: heroScrollCueBounce 1250ms ease-in-out infinite;
+  will-change: transform;
+}
+
+.heroScrollCue:hover{ filter: brightness(1.08); }
+.heroScrollCue:active{ transform: translateX(-50%) translateY(1px); }
+.heroScrollCue:focus-visible{
+  outline: 3px solid color-mix(in srgb, var(--primary) 55%, transparent);
+  outline-offset: 3px;
+}
+
+@keyframes heroScrollCueBounce{
+  0%, 100%{ transform: translateX(-50%) translateY(0); }
+  50%{ transform: translateX(-50%) translateY(-10px); }
+}
+
 @media (max-width: 900px){
   .hero{ min-height: 92vh; height: auto; padding-bottom: 26px; }
   .heroInner{ width: calc(100% - 28px); padding-top: 14px; }
@@ -364,7 +396,140 @@ html[data-theme="light"] .wciBtn{
   .btn{ min-width: 170px; }
   .videoCard{ border-radius: 18px; }
   .heroVideo, .videoFallback{ height: clamp(200px, 54vw, 300px); }
+  
+  /* Adjust scroll cue position for mobile */
+  .heroScrollCue {
+    bottom: 20px; /* Position it within the hero section instead of below */
+    position: relative; /* Change to relative positioning to keep it within hero */
+    left: 30px; /* Reset left positioning */
+    transform: none; /* Remove transform */
+    margin: 20px auto 0; /* Center with margin and add top spacing */
+  }
 }
+
+@media (prefers-reduced-motion: reduce){
+  .heroScrollCue{ animation: none; }
+}
+
+
+/* Scroll cue for expertise page */
+.expertise-scroll-cue {
+  position: fixed;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(0, 0, 0, 0.22);
+  color: rgba(255, 255, 255, 0.95);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  animation: heroScrollCueBounce 1250ms ease-in-out infinite;
+  will-change: transform;
+  z-index: 10;
+}
+
+.expertise-scroll-cue:hover {
+  filter: brightness(1.08);
+}
+
+.expertise-scroll-cue:active {
+  transform: translateX(-50%) translateY(1px);
+}
+
+.expertise-scroll-cue:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--primary) 55%, transparent);
+  outline-offset: 3px;
+}
+
+/* Reuse the same animation from hero */
+@keyframes heroScrollCueBounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expertise-scroll-cue {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .expertise-scroll-cue {
+    width: 46px;
+    height: 46px;
+    bottom: 20px;
+  }
+}
+
+/* Scroll cue for expertise page header */
+.header-scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(0, 0, 0, 0.22);
+  color: rgba(255, 255, 255, 0.95);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  animation: heroScrollCueBounce 1250ms ease-in-out infinite;
+  will-change: transform;
+  z-index: 10;
+}
+
+.header-scroll-cue:hover {
+  filter: brightness(1.08);
+}
+
+.header-scroll-cue:active {
+  transform: translateX(-50%) translateY(1px);
+}
+
+.header-scroll-cue:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--primary) 55%, transparent);
+  outline-offset: 3px;
+}
+
+/* Reuse the same animation from hero */
+@keyframes heroScrollCueBounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-scroll-cue {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-scroll-cue {
+    width: 46px;
+    height: 46px;
+    bottom: 20px;
+  }
+}
+
 
 .videoCard{
   width: min(980px, calc(100% - 10px));
@@ -1451,20 +1616,21 @@ body.mobile-menu-open {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: none;
+  background: #1AF4FF;
   border: none;
-  color: #007bff; /* Adjust color to match your theme */
+  color: #000000; /* Adjust color to match your theme */
+  font-weight: 600;
   cursor: pointer;
   font-size: 1rem;
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 50px;
   transition: all 0.3s ease;
   text-decoration: none;
 }
 
 .back-to-services-btn:hover {
-  background-color: rgba(0, 123, 255, 0.1);
-  text-decoration: underline;
+  background-color: #c9a226;
+  text-decoration: none;
 }
 
 .back-to-services-btn:focus {

@@ -38,14 +38,24 @@ export default function ServicePickerModal({
   onClose,
   value = [],
   onChange,
-  max = 16,
+  max = 6,
   title = "Services provided",
 }) {
   const [query, setQuery] = useState("");
   const dialogRef = useRef(null);
   const inputRef = useRef(null);
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
 
   const selected = value;
+
+  // Validate form inputs
+  const isFormValid = () => {
+    return fullName.trim() !== "" && 
+           email.trim() !== "" && 
+           /\S+@\S+\.\S+/.test(email) && 
+           selected.length > 0;
+  };
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -89,10 +99,42 @@ export default function ServicePickerModal({
 
   if (!open) return null;
 
-  const contactHref =
-    selected.length > 0
-      ? `/contact?services=${encodeURIComponent(selected.map((s) => s.name).join(", "))}`
-      : "/contact";
+  // Generate mailto link with all information
+  const generateMailtoLink = () => {
+    const subject = encodeURIComponent(`Service Inquiry from ${fullName}`);
+    const servicesList = selected.map(s => s.name).join(", ");
+    const body = encodeURIComponent(
+      `Hello,\n\nMy name is ${fullName}.\nMy email is ${email}.\n\nI'm interested in the following services:\n${servicesList}\n\nPlease contact me for more information.\n\nBest regards,\n${fullName}`
+    );
+    
+    return `mailto:info@ingeniumhub.com?subject=${subject}&body=${body}`;
+  };
+
+  // Function to handle submit action (will be useful when connecting to API)
+  const handleSubmit = async () => {
+    // This is where you could add your API call
+    // Example:
+    /*
+    try {
+      await fetch('/api/service-inquiry', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName,
+          email,
+          services: selected.map(s => ({ key: s.key, name: s.name })),
+        }),
+      });
+    } catch (error) {
+      console.error('Error submitting inquiry:', error);
+    }
+    */
+
+    // For now, just close the modal
+    onClose?.();
+  };
 
   return (
     <div className="spBackdrop" role="presentation" onMouseDown={onClose}>
@@ -104,6 +146,35 @@ export default function ServicePickerModal({
         ref={dialogRef}
         onMouseDown={(e) => e.stopPropagation()}
       >
+        {/* Contact Information Fields */}
+        <div className="spContactInfo">
+          <div className="spInputContainer">
+            <label htmlFor="fullName" className="spLabel">Full Name *</label>
+            <input
+              id="fullName"
+              type="text"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              placeholder="Enter your full name"
+              className="spTextInput"
+              required
+            />
+          </div>
+          
+          <div className="spInputContainer">
+            <label htmlFor="email" className="spLabel">Email Address *</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email address"
+              className="spTextInput"
+              required
+            />
+          </div>
+        </div>
+
         <div className="spHeader">
           <div className="spHeaderText">
             <h2 className="spTitle">{title}</h2>
@@ -143,34 +214,34 @@ export default function ServicePickerModal({
           <div className="spHint">Pick services you are interested in. You can update this anytime.</div>
         )}
 
-        <div className="spList" aria-label="Available services">
-          {filtered.map((s) => {
-            const Icon = s.icon;
-            const isOn = selectedSet.has(s.key);
-            const disabled = !isOn && selected.length >= max;
+     <div className="spList" aria-label="Available services">
+  {filtered.map((s) => {
+    const Icon = s.icon;
+    const isOn = selectedSet.has(s.key);
+    const disabled = !isOn && selected.length >= max;
 
-            return (
-              <button
-                type="button"
-                key={s.key}
-                className={`spRow ${isOn ? "isOn" : ""}`}
-                onClick={() => toggle(s)}
-                disabled={disabled}
-              >
-                <span className="spRowIcon" aria-hidden="true">
-                  <Icon size={18} strokeWidth={1.7} />
-                </span>
-                <span className="spRowText">
-                  <span className="spRowName">{s.name}</span>
-                  <span className="spRowDesc">{s.desc}</span>
-                </span>
-                <span className="spRowPill" aria-hidden="true">
-                  {isOn ? "Added" : "Add"}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+    return (
+      <button
+        type="button"
+        key={s.key}
+        className={`spRow ${isOn ? "isOn" : ""}`}
+        onClick={() => toggle(s)}
+        disabled={disabled}
+      >
+        <span className="spRowIcon" aria-hidden="true">
+          <Icon size={18} strokeWidth={1.7} />
+        </span>
+        <span className="spRowText">
+          <span className="spRowName">{s.name}</span>
+          <span className="spRowDesc">{s.desc}</span>
+        </span>
+        <span className="spRowPill" aria-hidden="true">
+          {isOn ? "Added" : "Add"}
+        </span>
+      </button>
+    );
+  })}
+</div>
 
         <div className="spFooter">
           <div className="spCount">
@@ -180,9 +251,21 @@ export default function ServicePickerModal({
             <button type="button" className="spBtn ghost" onClick={() => onChange?.([])}>
               Clear
             </button>
-            <Link className="spBtn primary" to={contactHref} onClick={onClose}>
-              Continue <ArrowRight size={18} />
-            </Link>
+            <a 
+              className={`spBtn primary ${!isFormValid() ? 'disabled' : ''}`} 
+              href={isFormValid() ? generateMailtoLink() : '#'}
+              onClick={(e) => {
+                if (!isFormValid()) {
+                  e.preventDefault();
+                  alert('Please fill in all required fields and select at least one service');
+                  return;
+                }
+                handleSubmit();
+              }}
+              style={{ pointerEvents: !isFormValid() ? 'none' : 'auto' }}
+            >
+              Submit <ArrowRight size={18} />
+            </a>
           </div>
         </div>
       </div>

@@ -37,11 +37,11 @@ const Footer = () => {
             <ul className="footer__list">
               <li><a className="footer__link" href="/">Home</a></li>
                 <li><a className="footer__link" href="/services">Services</a></li>
-              <li><a className="footer__link" href="/about">About</a></li>
+              {/* <li><a className="footer__link" href="/about">About</a></li> */}
                 <li><a className="footer__link" href="/integrity">Integrity</a></li>
                     <li><a className="footer__link" href="/impact">Impact</a></li>
-                       <li><a className="footer__link" href="/the-engine">The Engine</a></li>
-              <li><a className="footer__link" href="/contact">Contact</a></li>
+                       {/* <li><a className="footer__link" href="/the-engine">The Engine</a></li>
+              <li><a className="footer__link" href="/contact">Contact</a></li> */}
             </ul>
           </nav>
 
