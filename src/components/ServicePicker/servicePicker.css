@@ -303,7 +303,7 @@ html[data-theme="light"] .spRow{
   margin-bottom: 5px;
   font-weight: 500;
   font-size: 14px;
-  color: #0b0b0b;
+  color: var(--text-strong);
 }
 
 .spTextInput {
