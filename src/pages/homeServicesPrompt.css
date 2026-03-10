@@ -34,9 +34,9 @@
   border-radius: 999px;
   display: grid;
   place-items: center;
-  background: rgba(26,244,255,0.18);
-  border: 1px solid rgba(26,244,255,0.28);
-  color: var(--text-strong);
+  background: rgb(255, 255, 255);
+  border: 1px solid #c9a226;
+  color: var(--primary);
   flex: 0 0 auto;
 }
 

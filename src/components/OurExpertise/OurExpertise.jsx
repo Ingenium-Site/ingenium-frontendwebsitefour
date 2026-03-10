@@ -92,9 +92,16 @@ const OurExpertise = ({ resetAnimations }) => {
 
                 <p className="oeCardText">{item.desc}</p>
 
-                <Link className="wciBtn oeBtn" to={item.to}>
-                  Read More <span className="oeArrow">↗</span>
-                </Link>
+              <Link 
+                className="wciBtn oeBtn" 
+                to={{
+                  pathname: item.to,
+                  search: location.search
+                }}
+                state={{ from: 'homepage' }}
+              >
+                Read More <span className="oeArrow">↗</span>
+              </Link>
               </article>
             </AnimateOnScroll>
           ))}

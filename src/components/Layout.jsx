@@ -16,25 +16,38 @@ export default function Layout() {
   }, [location.pathname])
 
   useEffect(() => {
-    const getFooterElement = () => document.querySelector("footer")
+    const getFooterElement = () =>
+      document.getElementById("site-footer") || document.querySelector("footer")
+
+    const getScrollTop = () =>
+      Math.max(
+        window.scrollY || 0,
+        window.pageYOffset || 0,
+        document.documentElement?.scrollTop || 0,
+        document.body?.scrollTop || 0
+      )
+
+    const getViewportHeight = () =>
+      window.innerHeight || document.documentElement?.clientHeight || 0
+
+    const getDocumentHeight = () =>
+      Math.max(document.body?.scrollHeight || 0, document.documentElement?.scrollHeight || 0)
 
     const computeShouldShow = () => {
       const footer = getFooterElement()
-      const scrollTop = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
+      const scrollTop = getScrollTop()
       if (scrollTop <= 120) return false
 
       if (!footer) {
-        const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0
-        const documentHeight = Math.max(
-          document.body.scrollHeight || 0,
-          document.documentElement.scrollHeight || 0
-        )
+        const viewportHeight = getViewportHeight()
+        const documentHeight = getDocumentHeight()
         return scrollTop + viewportHeight >= documentHeight - Math.max(220, viewportHeight * 0.2)
       }
 
       const rect = footer.getBoundingClientRect()
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0
-      return rect.top <= viewportHeight - Math.min(48, viewportHeight * 0.08)
+      const viewportHeight = getViewportHeight()
+      const footerInView = rect.top < viewportHeight && rect.bottom > 0
+      return footerInView
     }
 
     const syncVisibility = () => {

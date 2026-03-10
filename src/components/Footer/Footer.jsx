@@ -14,7 +14,7 @@ const Footer = () => {
   const currentLogo = theme === "dark" ? footerLogo2 : footerLogo;
 
   return (
-    <footer className="footer" aria-label="Site footer">
+    <footer id="site-footer" className="footer" aria-label="Site footer">
         <div className="footer__container">
           {/* Left: Logo + text */}
           <div className="footer__brand">

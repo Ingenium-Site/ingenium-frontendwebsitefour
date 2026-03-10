@@ -98,9 +98,13 @@ export default function Services() {
                       </div>
                     )}
 
-                    <Link className="wciBtn srvBtn" to={`/expertise/${item.slug}`}>
-                      Read More <span className="srvArrow">↗</span>
-                    </Link>
+                   <Link 
+                    className="wciBtn srvBtn" 
+                    to={`/expertise/${item.slug}`}
+                    state={{ from: 'services' }}
+                  >
+                    Read More <span className="srvArrow">↗</span>
+                  </Link>
                   </article>
                 );
               })}
