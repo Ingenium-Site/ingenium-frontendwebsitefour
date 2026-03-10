@@ -1,6 +1,6 @@
 import React from "react";
 import "./footer.css";
-import { FaInstagram, FaFacebookF, FaYoutube, FaLinkedinIn } from "react-icons/fa";
+import { FaInstagram, FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import footerLogo from '../../assets/ingenium-logo-full1.jpeg'; // Light mode logo
 import footerLogo2 from '../../assets/ingenium-logo-full2.png'; // Dark mode logo
@@ -135,6 +135,17 @@ const Footer = () => {
             >
               <FaLinkedinIn className="footer__socialIcon" aria-hidden="true" focusable="false" />
             </a>
+
+            <a
+            className="footer__socialBtn"
+            href="https://wa.me/233302260243" // Use your WhatsApp number in international format
+            target="_blank"
+            rel="noreferrer"
+            aria-label="WhatsApp"
+            title="WhatsApp"
+          >
+            <FaWhatsapp className="footer__socialIcon" aria-hidden="true" focusable="false" />
+          </a>
           </div>
         </div>
     </footer>
