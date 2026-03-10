@@ -155,6 +155,7 @@
   font-size: 18px;
   font-weight: 800;
   letter-spacing: -0.01em;
+  display: block; /* This ensures each value appears on its own line */
 }
 
 .contactFormTitle {

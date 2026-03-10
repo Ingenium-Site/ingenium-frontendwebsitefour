@@ -80,7 +80,9 @@ export default function Contact() {
                   </div>
                   <div className="contactInfoText">
                     <span className="contactLabel">Phone Number</span>
-                    <strong className="contactValue">(+233) 123 456 789</strong>
+                    <strong className="contactValue">Sales: (+233) 59 500 128</strong>
+                    <strong className="contactValue">Admin: (+233) 53 321 5298</strong>
+
                   </div>
                 </div>
 
