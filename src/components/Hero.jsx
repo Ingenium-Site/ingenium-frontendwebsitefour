@@ -6,6 +6,8 @@ import heroArtwork from '../assets/hero-artwork.png'
 import logoFull from '../assets/ingenium-logo-full.png'
 import ingeniumHeaderVideo from '../assets/IngeniumHeaderWebsite.mp4' 
 import { ChevronDown } from "lucide-react";
+import TextMorph from './TextMorph.jsx'
+import Reveal from './Reveal.jsx'
 
 export default function Hero({ videoSrc = '' }) {
   // Particles background (repulse) – matches the BannerHomeSection behavior you liked
@@ -77,7 +79,7 @@ export default function Hero({ videoSrc = '' }) {
     }
   }, [])
 
-  const onScrollCueClick = () => {
+  const scrollToNextSection = () => {
     document.getElementById("after-hero")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -90,7 +92,7 @@ export default function Hero({ videoSrc = '' }) {
 
       <div className="heroInner">
         {/* Video slot moved ABOVE the headline (per your request) */}
-        <div className="videoCard" aria-label="Hero looping video">
+        {/* <div className="videoCard" aria-label="Hero looping video">
           {ingeniumHeaderVideo ? (
           <video 
           className="heroVideo" 
@@ -116,8 +118,14 @@ export default function Hero({ videoSrc = '' }) {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
 
+      {/* Centered morph container replacing the video */}
+      <div className="morph-container centered hero-morph">
+        <Reveal from="bottom" delay={120}>
+          <span className="morph-text"><TextMorph /></span>
+        </Reveal>
+      </div>
         <h1 className="heroTitle">Build with Us</h1>
 
         <p className="heroSubtitle">
@@ -136,8 +144,8 @@ export default function Hero({ videoSrc = '' }) {
         <button
           type="button"
           className="heroScrollCue"
-          aria-label="Scroll down"
-          onClick={onScrollCueClick}
+          aria-label="Scroll to content"
+          onClick={scrollToNextSection}
         >
           <ChevronDown size={28} strokeWidth={2} aria-hidden="true" />
         </button>

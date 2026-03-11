@@ -138,7 +138,7 @@ const Footer = () => {
 
             <a
             className="footer__socialBtn"
-            href="https://wa.me/233302260243" // Use your WhatsApp number in international format
+            href="https://wa.me/233533215298" // Use your WhatsApp number in international format
             target="_blank"
             rel="noreferrer"
             aria-label="WhatsApp"

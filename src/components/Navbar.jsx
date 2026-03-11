@@ -165,7 +165,7 @@ export default function Navbar() {
             </NavLink>
             {hoveredDropdown === 'engine' && (
               <div className="dropdown-menu">
-                <NavLink to="/brand-system" className="dropdown-item">Brand System</NavLink>
+                {/* <NavLink to="/brand-system" className="dropdown-item">Brand System</NavLink> */}
                 <NavLink to="/how-we-think" className="dropdown-item">How We Think (IIE)</NavLink>
               </div>
             )}
@@ -316,13 +316,13 @@ export default function Navbar() {
                     </NavLink>
                   </div>
                   <div className="mobile-submenu">
-                    <NavLink
+                    {/* <NavLink
                       to="/brand-system"
                       className="mobile-nav-link submenu-item"
                       onClick={closeMenu}
                     >
                       Brand System
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink
                       to="/how-we-think"
                       className="mobile-nav-link submenu-item"

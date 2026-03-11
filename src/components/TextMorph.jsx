@@ -14,7 +14,7 @@ export default function TextMorph(){
   return (
     <div className="textmorph" aria-live="polite" aria-atomic="true">
       <div className="textmorph__row">
-        <span className="textmorph__in">In</span>
+        {/* <span className="textmorph__in">In</span> */}
         <span className="textmorph__slot">
           <span
             key={index}
