@@ -31,7 +31,7 @@
 
 /* Shared offset so hero and select headers can extend behind the sticky nav */
 :root {
-  --nav-offset: 82px;
+  --nav-offset: 70px;
 }
 
 @media (max-width: 900px) {
@@ -93,12 +93,9 @@ html {
   }
 }
 
-html[data-theme="light"] .textmorph__in .globalExpSub {
-  color: #0ecf0b; /* Black color for light theme */
-}
 
-html[data-theme="dark"] .textmorph__in .globalExpSub {
-  color: rgba(255, 255, 255, 0.95); /* Original white color for dark theme */
+html[data-theme="dark"] .globalExpSub {
+  color: rgba(255, 255, 255, 0.95); 
 }
 
 a {
@@ -326,20 +323,48 @@ html[data-theme="light"] .wciBtn {
   padding-top: var(--nav-offset);
 }
 
+/* Update the flowmapWrap styles to ensure full visibility */
 .flowmapWrap {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  overflow: visible; /* Allow content to extend beyond container */
+  --flowmap-offset-x: 0;
+  --flowmap-offset-y: 0;
 }
 
-@media (max-width: 900px) {
-  .navWrap {
-    padding: 16px 0 12px;
-    z-index: 10;
+/* Mobile responsiveness for HeroFlowmap - show more of the image */
+@media (max-width: 768px) {
+  .flowmapWrap {
+    overflow: visible; /* Ensure content isn't clipped */
+    left: 0; /* Start from the left edge */
+    top: 0; /* Position from the top edge */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    --flowmap-offset-x: -0.22; /* Shift to show more of the right side of the image */
+  }
+  
+  /* Adjust canvas to show more of the image */
+  .flowmapWrap canvas {
+    width: 100%; /* Use full width */
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: left center; /* Align to left to show more of the right side */
+    transform: translateX(0); /* No horizontal shift */
   }
 }
 
+/* Desktop adjustments to maintain proper positioning */
+@media (min-width: 769px) {
+  .flowmapWrap canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
 /* WebGL canvas injected by HeroFlowmap */
 .flowmapWrap canvas {
   width: 100%;
@@ -395,8 +420,8 @@ html[data-theme="light"] .wciBtn {
 
 .heroScrollCue {
   position: absolute;
-  left: 50%;
-  bottom: -70px;
+  left: 49%;
+  bottom: -120px;
   transform: translateX(-50%);
   width: 52px;
   height: 52px;
@@ -443,6 +468,7 @@ html[data-theme="light"] .wciBtn {
   .heroInner {
     width: calc(100% - 28px);
     padding-top: 14px;
+    height: 130%;
   }
   .heroTitle {
     font-size: clamp(32px, 8vw, 46px);
@@ -465,7 +491,7 @@ html[data-theme="light"] .wciBtn {
   .heroScrollCue {
     bottom: 20px; /* Position it within the hero section instead of below */
     position: relative; /* Change to relative positioning to keep it within hero */
-    left: 30px; /* Reset left positioning */
+    left: 20px; /* Reset left positioning */
     transform: none; /* Remove transform */
     margin: 20px auto 0; /* Center with margin and add top spacing */
   }
@@ -855,14 +881,16 @@ html[data-theme="light"] .wciBtn {
 }
 
 .textmorph__row {
-  font-size: 200px;
+  font-size: 165px;
   line-height: 1;
   font-weight: 900;
   letter-spacing: -0.02em;
 }
 
 .textmorph__in {
-  color: rgba(255, 255, 255, 0.95);
+ font-size: inherit;
+  color: var(--text-strong);
+  transition: color 0.5s ease;
 }
 .textmorph__slot {
   position: relative;
@@ -908,9 +936,9 @@ html[data-theme="light"] .wciBtn {
 }
 
 /* Add these styles to your global.css */
-.textmorph__in {
-  color: var(--text-strong); /* Uses current theme's text color */
-}
+/* .textmorph__in {
+  color: var(--text-strong); 
+} */
 
 /* Mobile responsiveness for Global Experience */
 @media (max-width: 991px) {
@@ -1403,6 +1431,7 @@ html[data-theme="light"] .expGridCard:hover .expListItem {
   .heroInner {
     width: min(980px, calc(100% - 28px));
     padding-top: 14px;
+    height: 130%;
   }
   .videoCard {
     width: min(980px, calc(100% - 28px));
@@ -1891,9 +1920,6 @@ body.mobile-menu-open {
   height: auto;
 }
 
-.textmorph__in {
-  font-size: inherit;
-}
 
 .textmorph__slot {
   height: auto;
@@ -1909,6 +1935,8 @@ body.mobile-menu-open {
   .hero-morph {
     bottom: 10%; /* Slightly higher on smaller screens */
     width: 90%;
+    top:-240px;
+    left:250px;
   }
   
   .morph-container.centered .textmorph {

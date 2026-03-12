@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 const words = ['sight', 'fluence', 'telligent', 'tegrity', 'genium']
 const colors = ['#00C2B8', '#00A3FF', '#F55A1F', '#C9A227', '#00C2B8']
+const colorstwo = ['#F55A1F','#00C2B8','#C9A227',  '#00C2B8', '#00A3FF',]
+
 
 export default function TextMorph(){
   const [index, setIndex] = useState(0)
@@ -11,10 +13,16 @@ export default function TextMorph(){
     return () => clearInterval(t)
   }, [])
 
+  // Use the same colors array for both "In" and the words
   return (
     <div className="textmorph" aria-live="polite" aria-atomic="true">
       <div className="textmorph__row">
-        {/* <span className="textmorph__in">In</span> */}
+        <span 
+          className="textmorph__in"
+          style={{ color: colorstwo[index % colorstwo.length] }}
+        >
+          In
+        </span>
         <span className="textmorph__slot">
           <span
             key={index}

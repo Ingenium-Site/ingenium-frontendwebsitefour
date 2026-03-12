@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./footer.css";
 import { FaInstagram, FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
@@ -35,13 +36,13 @@ const Footer = () => {
           <nav className="footer__links" aria-label="Quick links">
             <h3 className="footer__title">Quick Links</h3>
             <ul className="footer__list">
-              <li><a className="footer__link" href="/">Home</a></li>
-                <li><a className="footer__link" href="/services">Services</a></li>
-              {/* <li><a className="footer__link" href="/about">About</a></li> */}
-                <li><a className="footer__link" href="/integrity">Integrity</a></li>
-                    <li><a className="footer__link" href="/impact">Impact</a></li>
-                       {/* <li><a className="footer__link" href="/the-engine">The Engine</a></li>
-              <li><a className="footer__link" href="/contact">Contact</a></li> */}
+              <li><Link className="footer__link" to="/">Home</Link></li>
+              <li><Link className="footer__link" to="/services">Services</Link></li>
+              {/* <li><Link className="footer__link" to="/about">About</Link></li> */}
+              <li><Link className="footer__link" to="/integrity">Integrity</Link></li>
+              <li><Link className="footer__link" to="/impact">Impact</Link></li>
+              {/* <li><Link className="footer__link" to="/the-engine">The Engine</Link></li>
+              <li><Link className="footer__link" to="/contact">Contact</Link></li> */}
             </ul>
           </nav>
 

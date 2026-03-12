@@ -41,7 +41,7 @@ export default function HeroFlowmap({ image, opacity = 0.55, className = '' }) {
       if (!host) return
 
       try {
-        await loadScriptOnce('/vendor/flowmap-effect.min.js')
+        await loadScriptOnce(`${import.meta.env.BASE_URL}vendor/flowmap-effect.min.js`)
       } catch {
         // Silent fallback (no flowmap)
         return
@@ -74,6 +74,7 @@ export default function HeroFlowmap({ image, opacity = 0.55, className = '' }) {
         uniform sampler2D tWater;
         uniform sampler2D tFlow;
         uniform float uTime;
+        uniform vec2 uOffset;
         varying vec2 vUv;
         uniform vec4 res;
 
@@ -81,6 +82,7 @@ export default function HeroFlowmap({ image, opacity = 0.55, className = '' }) {
           vec3 flow = texture2D(tFlow, vUv).rgb;
           vec2 uv = .5 * gl_FragCoord.xy / res.xy;
           vec2 myUV = (uv - vec2(0.5)) * res.zw + vec2(0.5);
+          myUV += uOffset;
           myUV -= flow.xy * 0.105;
           vec3 tex = texture2D(tWater, myUV).rgb;
           gl_FragColor = vec4(tex, 1.0);
@@ -117,6 +119,7 @@ export default function HeroFlowmap({ image, opacity = 0.55, className = '' }) {
           tWater: { value: texture },
           res: { value: new ogl.Vec4() },
           tFlow: flowmap.uniform,
+          uOffset: { value: new ogl.Vec2(0, 0) },
         },
       })
 
@@ -127,6 +130,13 @@ export default function HeroFlowmap({ image, opacity = 0.55, className = '' }) {
       const velocity = new ogl.Vec2()
       const lastMouse = new ogl.Vec2()
       let lastTime
+
+      const readCssOffset = () => {
+        const styles = getComputedStyle(host)
+        const ox = Number.parseFloat(styles.getPropertyValue('--flowmap-offset-x')) || 0
+        const oy = Number.parseFloat(styles.getPropertyValue('--flowmap-offset-y')) || 0
+        program.uniforms.uOffset.value.set(ox, oy)
+      }
 
       function resize() {
         const hostW = host.offsetWidth
@@ -149,6 +159,7 @@ export default function HeroFlowmap({ image, opacity = 0.55, className = '' }) {
         }
 
         program.uniforms.res.value.set(hostW, hostH, a1, a2)
+        readCssOffset()
         renderer.setSize(hostW, hostH)
         aspect = hostW / hostH
       }

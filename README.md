@@ -16,6 +16,15 @@ This project includes:
    npm run dev
    ```
 
+## Deploy to GitHub Pages (repo site)
+If you host this from a repository URL like `https://<user>.github.io/<repo>/`, you must build with the correct base path so assets load on all devices.
+
+- **GitHub Actions:** `vite.config.js` auto-detects `GITHUB_REPOSITORY` during a production build.
+- **Local build (then push `dist/`):**
+  ```bash
+  VITE_BASE="/<repo>/" npm run build
+  ```
+
 ## Optional: add a looping video
 Place a video at:
 - `public/videos/hero-loop.mp4`
