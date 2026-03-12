@@ -132,7 +132,7 @@ export default function Home() {
     servicesPopupAutoRef.current.removeListeners = null;
   }, [servicesOpen]);
 
-  const [showAnimation, setShowAnimation] = useState(true);
+  // const [showAnimation, setShowAnimation] = useState(true);
 
  return (
   <>
@@ -141,13 +141,22 @@ export default function Home() {
     <GlobalExperience resetAnimations={resetAnimations} />
     <OurExpertise resetAnimations={resetAnimations} />
 
-   <span 
-      className={`homeServicesFloat__icon homeServicesFloat homeServicesFloat--animated`} 
-      aria-hidden="true"
-      onClick={() => setServicesOpen(true)}
-    >
+  {/* Floating services button */}
+<span 
+  className="homeServicesFloat__container" 
+  aria-hidden="true"
+  onClick={() => setServicesOpen(true)}
+>
+  <span className="homeServicesFloat__tooltip">Explore Our Services</span>
+  <div className="homeServicesFloat homeServicesFloat--animated">
+    <span className="homeServicesFloat__icon">
       <Sparkles size={30} strokeWidth={1.9} />
     </span>
+    <span className="homeServicesFloat__label">
+      <span className="homeServicesFloat__title">Explore Our Services</span>
+    </span>
+  </div>
+</span>
 
     <WhyChooseIngenium resetAnimations={resetAnimations} />
     <Footer resetAnimations={resetAnimations} />  

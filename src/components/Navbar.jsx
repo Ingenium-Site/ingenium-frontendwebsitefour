@@ -208,139 +208,122 @@ export default function Navbar() {
             )}
           </button>
         </div>
+      </nav>
 
-        {/* Mobile drawer */}
-        {mobileMenuOpen && (
-          <div className="mobile-menu-overlay" onClick={closeMenu} role="presentation">
-            <div
-              className="mobile-menu-content"
-              onClick={(e) => e.stopPropagation()}
-              role="dialog"
-              aria-modal="true"
-              aria-label="Mobile menu"
-            >
-              <div className="mobile-menu-top">
-                <NavLink className="mobile-menu-logo" to="/" onClick={closeMenu} aria-label="Ingenium home">
-                  {LogoImg}
-                </NavLink>
+      {/* Mobile drawer (kept outside the <nav> so it doesn't affect nav layout) */}
+      {mobileMenuOpen && (
+        <div className="mobile-menu-overlay" onClick={closeMenu} role="presentation">
+          <div
+            className="mobile-menu-content"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile menu"
+          >
+            <div className="mobile-menu-top">
+              <NavLink className="mobile-menu-logo" to="/" onClick={closeMenu} aria-label="Ingenium home">
+                {LogoImg}
+              </NavLink>
 
-                <div className="mobile-menu-actions">
-                  <button
-                    type="button"
-                    className="mobile-theme-toggle"
-                    onClick={toggleTheme}
-                    aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-                    title={theme === "dark" ? "Light mode" : "Dark mode"}
-                  >
-                    {ThemeIcon}
-                  </button>
-
-                  <button
-                    className="mobile-menu-close-button"
-                    type="button"
-                    onClick={closeMenu}
-                    aria-label="Close menu"
-                  >
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                      <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                      <path d="M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-
-                {/* Mobile version of Impact dropdown */}
-              <div className="mobile-nav-links">
-                <NavLink
-                  to="/"
-                  end
-                  className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
-                  onClick={closeMenu}
+              <div className="mobile-menu-actions">
+                <button
+                  type="button"
+                  className="mobile-theme-toggle"
+                  onClick={toggleTheme}
+                  aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+                  title={theme === "dark" ? "Light mode" : "Dark mode"}
                 >
-                  Home
-                </NavLink>
-                <NavLink
-                  to="/services"
-                  className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
-                  onClick={closeMenu}
-                >
-                  Services
-                </NavLink>
-                <NavLink
-                  to="/about"
-                  className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
-                  onClick={closeMenu}
-                >
-                  About
-                </NavLink>
-                
-                   <NavLink
-                  to="/integrity"
-                  className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
-                  onClick={closeMenu}
-                >
-                  Integrity
-                </NavLink>
-                
-                <div className="mobile-dropdown">
-                  <div className="mobile-dropdown-header">
-                    <NavLink
-                      to="/impact"
-                      className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
-                      onClick={closeMenu}
-                    >
-                      Impact
-                    </NavLink>
-                  </div>
-                  <div className="mobile-submenu">
-                    <NavLink
-                      to="/portfolio"
-                      className="mobile-nav-link submenu-item"
-                      onClick={closeMenu}
-                    >
-                      Portfolio
-                    </NavLink>
-                  </div>
-                </div>
-                
-          
-                <div className="mobile-dropdown">
-                  <div className="mobile-dropdown-header">
-                    <NavLink
-                      to="/the-engine"
-                      className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
-                      onClick={closeMenu}
-                    >
-                      The Engine
-                    </NavLink>
-                  </div>
-                  <div className="mobile-submenu">
-                    {/* <NavLink
-                      to="/brand-system"
-                      className="mobile-nav-link submenu-item"
-                      onClick={closeMenu}
-                    >
-                      Brand System
-                    </NavLink> */}
-                    <NavLink
-                      to="/how-we-think"
-                      className="mobile-nav-link submenu-item"
-                      onClick={closeMenu}
-                    >
-                      How We Think (IIE)
-                    </NavLink>
-                  </div>
-                </div>
+                  {ThemeIcon}
+                </button>
 
-                <NavLink className="navCta mobile-nav-cta" to="/contact" onClick={closeMenu}>
-                  Contact Us
-                </NavLink>
+                <button
+                  className="mobile-menu-close-button"
+                  type="button"
+                  onClick={closeMenu}
+                  aria-label="Close menu"
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                </button>
               </div>
             </div>
+
+            {/* Mobile version of Impact dropdown */}
+            <div className="mobile-nav-links">
+              <NavLink
+                to="/"
+                end
+                className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
+                onClick={closeMenu}
+              >
+                Home
+              </NavLink>
+              <NavLink
+                to="/services"
+                className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
+                onClick={closeMenu}
+              >
+                Services
+              </NavLink>
+              <NavLink
+                to="/about"
+                className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
+                onClick={closeMenu}
+              >
+                About
+              </NavLink>
+
+              <NavLink
+                to="/integrity"
+                className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
+                onClick={closeMenu}
+              >
+                Integrity
+              </NavLink>
+
+              <div className="mobile-dropdown">
+                <div className="mobile-dropdown-header">
+                  <NavLink
+                    to="/impact"
+                    className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
+                    onClick={closeMenu}
+                  >
+                    Impact
+                  </NavLink>
+                </div>
+                <div className="mobile-submenu">
+                  <NavLink to="/portfolio" className="mobile-nav-link submenu-item" onClick={closeMenu}>
+                    Portfolio
+                  </NavLink>
+                </div>
+              </div>
+
+              <div className="mobile-dropdown">
+                <div className="mobile-dropdown-header">
+                  <NavLink
+                    to="/the-engine"
+                    className={({ isActive }) => `mobile-nav-link ${isActive ? "active" : ""}`}
+                    onClick={closeMenu}
+                  >
+                    The Engine
+                  </NavLink>
+                </div>
+                <div className="mobile-submenu">
+                  <NavLink to="/how-we-think" className="mobile-nav-link submenu-item" onClick={closeMenu}>
+                    How We Think (IIE)
+                  </NavLink>
+                </div>
+              </div>
+
+              <NavLink className="navCta mobile-nav-cta" to="/contact" onClick={closeMenu}>
+                Contact Us
+              </NavLink>
+            </div>
           </div>
-        )}
-      </nav>
+        </div>
+      )}
     </header>
   );
 }

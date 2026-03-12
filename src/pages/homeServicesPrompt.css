@@ -1,15 +1,18 @@
-.homeServicesFloat{
+.homeServicesFloat__container {
   position: fixed;
   top: 50%;
   right: 18px;
   transform: translateY(-50%);
   z-index: 70;
+  cursor: pointer;
+}
 
+.homeServicesFloat{
   display: flex;
   align-items: center;
   gap: 12px;
 
-  padding: 6px 8px;
+  padding: 6px 16px;
   border-radius: 999px;
   border: 1px solid var(--surface-border);
   background: color-mix(in srgb, var(--surface) 86%, transparent);
@@ -17,16 +20,14 @@
   backdrop-filter: blur(10px);
   cursor: pointer;
 
-  /* icon-only by default */
-  width: 54px;
-  overflow: hidden;
+  /* Always show both icon and text */
+  width: auto;
+  overflow: visible;
 }
 
-.homeServicesFloat:hover{
-  width: min(380px, calc(100vw - 40px));
+.homeServicesFloat:active{ 
+  transform: translateY(-50%) translateY(1px); 
 }
-
-.homeServicesFloat:active{ transform: translateY(-50%) translateY(1px); }
 
 .homeServicesFloat__icon{
   width: 44px;
@@ -44,15 +45,9 @@
   display: grid;
   gap: 3px;
   text-align: left;
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: opacity 200ms ease, transform 200ms ease;
-  white-space: nowrap;
-}
-
-.homeServicesFloat:hover .homeServicesFloat__label{
   opacity: 1;
   transform: translateX(0);
+  white-space: nowrap;
 }
 
 .homeServicesFloat__title{
@@ -62,35 +57,73 @@
   letter-spacing: -0.02em;
 }
 
-.homeServicesFloat__sub{
-  color: var(--text-muted);
-  font-size: 12px;
-  line-height: 1.2;
-}
-
 .homeAfterHeroMarker{
   height: 1px;
 }
 
+/* Mobile responsiveness adjustments */
 @media (max-width: 520px){
-  .homeServicesFloat{ right: 12px; }
-  .homeServicesFloat:hover{ width: min(330px, calc(100vw - 24px)); }
+  .homeServicesFloat__container{ 
+    right: 12px; 
+  }
+  
+  /* Adjust for smaller screens - hide text, show only icon */
+  .homeServicesFloat {
+    padding: 6px;
+    width: 56px; /* Match the icon size plus padding */
+    justify-content: center;
+  }
+  
+  .homeServicesFloat__icon {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .homeServicesFloat__label {
+    display: none; /* Hide the text completely on mobile */
+  }
+  
+  /* Adjust the tooltip position for icon-only view */
+  .homeServicesFloat__tooltip {
+    position: absolute;
+    left: -140px; /* Position to the left of the icon */
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--surface);
+    color: var(--text);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  
+  .homeServicesFloat:hover .homeServicesFloat__tooltip {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce){
-  .homeServicesFloat__label{ transition: none; }
+  .homeServicesFloat__label{ 
+    transition: none; 
+  }
+  
+  /* Remove animations for reduced motion */
+  .homeServicesFloat--animated {
+    animation: none;
+  }
 }
 
-
-/* Animation on Sparkles */
-
+/* Animation on the entire container */
 @keyframes gentlePulse {
   0% {
     transform: translateY(-50%) scale(1);
     box-shadow: 0 18px 50px rgba(0,0,0,0.28);
   }
   50% {
-    transform: translateY(-50%) scale(1.1);
+    transform: translateY(-50%) scale(1.05);
     box-shadow: 0 22px 55px rgba(201, 162, 38, 0.4);
   }
   100% {
@@ -114,24 +147,93 @@
 /* Combined animation */
 .homeServicesFloat--animated {
   animation: floatGentle 3s ease-in-out infinite, gentlePulse 2.5s ease-in-out infinite;
-  animation-delay: 0s, 0.5s; /* Stagger the animations slightly */
+  animation-delay: 0s, 0.5s;
 }
 
-/* Make sure the icon container allows the animation to show properly */
-.homeServicesFloat--animated .homeServicesFloat__icon {
-  animation: none; /* Reset any conflicting animation on the icon */
-}
-
-/* Simple bounce animation */
-@keyframes simpleBounce {
-  0%, 100% {
-    transform: translateY(-50%) scale(1);
+/* Additional responsive adjustments for service cards */
+@media (max-width: 768px) {
+  .srvCard {
+    padding: 16px;
   }
-  50% {
-    transform: translateY(-55%) scale(1.05);
+  
+  .srvCardTop {
+    margin-bottom: 12px;
+  }
+  
+  .srvIconCircle {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .srvCardTitle {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .srvCardText {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  
+  .srvBtn {
+    font-size: 14px;
+    padding: 8px 16px;
   }
 }
 
-.homeServicesFloat.bounce-animation {
-  animation: simpleBounce 2s ease-in-out infinite;
+@media (max-width: 480px) {
+  .srvCard {
+    padding: 14px;
+  }
+  
+  .srvIconCircle {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .srvCardTitle {
+    font-size: 15px;
+  }
+  
+  .srvCardText {
+    font-size: 13px;
+  }
+  
+  .srvChip {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+  
+  .srvBtn {
+    font-size: 13px;
+    padding: 7px 14px;
+  }
+}
+
+/* Reduced sizes for desktop view */
+.srvCard {
+  padding: 20px; /* Reduced from default */
+}
+
+.srvIconCircle {
+  width: 40px; /* Reduced from default */
+  height: 40px; /* Reduced from default */
+}
+
+.srvCardTitle {
+  font-size: 18px; /* Reduced from default */
+}
+
+.srvCardText {
+  font-size: 15px; /* Reduced from default */
+}
+
+.srvBtn {
+  font-size: 15px; /* Reduced from default */
+  padding: 10px 20px; /* Reduced from default */
+}
+
+.srvChip {
+  font-size: 12px; /* Reduced from default */
+  padding: 5px 10px; /* Reduced from default */
 }

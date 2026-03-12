@@ -193,6 +193,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  margin-left: auto;
   margin-right: 18px;
 }
 
@@ -275,40 +276,7 @@ html[data-theme="light"] .wciBtn {
   filter: brightness(1.03);
 }
 
-/* Mobile / tablet nav responsiveness */
-@media (max-width: 900px) {
-  .navWrap {
-    padding: 16px 0 12px;
-  }
-  .navBar {
-    height: auto;
-    padding: 10px 0;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
-  .navLogo {
-    min-width: auto;
-    padding-left: 14px;
-  }
-  .navLogo img {
-    height: 34px;
-  }
-  .navLinks {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-    gap: 18px;
-    padding: 4px 14px 10px;
-    flex-wrap: wrap;
-  }
-  .navRight {
-    margin-right: 14px;
-  }
-  .navCta {
-    padding: 10px 16px;
-    font-size: 14px;
-  }
-}
+
 
 /* ---------------- Hero ---------------- */
 .hero {
@@ -1390,116 +1358,7 @@ html[data-theme="light"] .expGridCard:hover .expListItem {
   filter: brightness(1.03);
 }
 
-@media (max-width: 760px) {
-  .navLogo {
-    min-width: unset;
-  }
-  .navLinks {
-    gap: 16px;
-  }
-  .navLinks a {
-    font-size: 14px;
-  }
-  .navCta {
-    padding: 12px 16px;
-  }
-  .btn {
-    min-width: 170px;
-  }
 
-  /* Global Experience responsiveness */
-  .globalExp {
-    padding: 40px 0;
-  }
-  .globalExpInner {
-    width: calc(100% - 28px);
-  }
-  .globalExpCards {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .globalExpCard {
-    border-radius: 18px;
-    padding: 20px;
-  }
-}
-
-/* Tablet + small laptop responsiveness */
-@media (max-width: 980px) {
-  .hero {
-    min-height: 88vh;
-    height: 88vh;
-  }
-  .heroInner {
-    width: min(980px, calc(100% - 28px));
-    padding-top: 14px;
-    height: 130%;
-  }
-  .videoCard {
-    width: min(980px, calc(100% - 28px));
-  }
-
-  .navBar {
-    width: calc(100% - 28px);
-  }
-  .navLinks {
-    gap: 22px;
-  }
-
-  /* If the cards feel cramped on tablet, stack them */
-  .globalExpCards {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Small phones */
-@media (max-width: 560px) {
-  .navWrap {
-    padding: 18px 0 12px;
-  }
-  .navBar {
-    height: auto;
-    flex-wrap: wrap;
-    row-gap: 10px;
-    padding: 10px 0;
-  }
-  .navLogo {
-    padding-left: 12px;
-  }
-  .navRight {
-    margin-right: 12px;
-  }
-
-  .navLinks {
-    flex: 1 1 100%;
-    justify-content: center;
-    gap: 14px;
-    padding: 6px 12px 10px;
-  }
-  .navLinks a.active::after {
-    bottom: -8px;
-  }
-
-  .heroTitle {
-    font-size: clamp(34px, 9vw, 48px);
-     margin: 30px 0 0;
-  }
-  .heroSubtitle {
-    font-size: 14px;
-  }
-  .btn {
-    width: 100%;
-    min-width: unset;
-  }
-  .heroCtas {
-    width: 100%;
-  }
-
-  .heroVideo,
-  .videoFallback {
-    height: 220px;
-  }
-}
 
 /* ── Back-to-top button (rendered in Layout) ── */
 .floating-back-to-top-btn {
@@ -1627,8 +1486,6 @@ html[data-theme="light"] .expGridCard:hover .expListItem {
   font-size: 16px;
 }
 
-/* NAV BAR MOBILE RESPONSIVENESS */
-
 /* Utility: hide on mobile / desktop */
 .desktop-only {
   display: inline-flex;
@@ -1640,9 +1497,12 @@ html[data-theme="light"] .expGridCard:hover .expListItem {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
-  margin-left: 12px;
+  padding: 4px; /* Smaller visual footprint */
+  margin-left: 0;
   color: currentColor;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
 }
 
 /* Mobile layout rules */
@@ -1651,6 +1511,9 @@ html[data-theme="light"] .expGridCard:hover .expListItem {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
   }
 
   .desktop-links,
@@ -1658,10 +1521,152 @@ html[data-theme="light"] .expGridCard:hover .expListItem {
   .desktop-only {
     display: none !important;
   }
+}
+
+/* Mobile / tablet nav responsiveness */
+@media (max-width: 900px) {
+  .navWrap {
+    padding: 16px 0 12px;
+  }
+  .navBar {
+    height: auto;
+    padding: 10px 0;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .navLogo {
+    min-width: auto;
+    padding-left: 14px;
+  }
+  .navLogo img {
+    height: 34px;
+  }
+  .navLinks {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 18px;
+    padding: 4px 14px 10px;
+    flex-wrap: wrap;
+  }
+  .navRight {
+    margin-right: 14px;
+    
+  }
+  .navCta {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 760px) {
+  .navLogo {
+    min-width: unset;
+  }
+  .navLinks {
+    gap: 16px;
+  }
+  .navLinks a {
+    font-size: 14px;
+  }
+  .navCta {
+    padding: 12px 16px;
+  }
+  .btn {
+    min-width: 170px;
+  }
+
+  /* Global Experience responsiveness */
+  .globalExp {
+    padding: 40px 0;
+  }
+  .globalExpInner {
+    width: calc(100% - 28px);
+  }
+  .globalExpCards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .globalExpCard {
+    border-radius: 18px;
+    padding: 20px;
+  }
+}
+
+/* Tablet + small laptop responsiveness */
+@media (max-width: 980px) {
+  .hero {
+    min-height: 88vh;
+    height: 88vh;
+  }
+  .heroInner {
+    width: min(980px, calc(100% - 28px));
+    padding-top: 14px;
+    height: 130%;
+  }
+  .videoCard {
+    width: min(980px, calc(100% - 28px));
+  }
 
   .navBar {
-    padding-left: 14px;
-    padding-right: 14px;
+    width: calc(100% - 28px);
+  }
+  .navLinks {
+    gap: 22px;
+  }
+
+  /* If the cards feel cramped on tablet, stack them */
+  .globalExpCards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small phones */
+@media (max-width: 560px) {
+  .navWrap {
+    padding: 18px 0 12px;
+  }
+  .navBar {
+    height: auto;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    padding: 10px 0;
+  }
+  .navLogo {
+    padding-left: 12px;
+  }
+  .navRight {
+    margin-right: 12px;
+  }
+
+  .navLinks {
+    flex: 1 1 100%;
+    justify-content: center;
+    gap: 14px;
+    padding: 6px 12px 10px;
+  }
+  .navLinks a.active::after {
+    bottom: -8px;
+  }
+
+  .heroTitle {
+    font-size: clamp(34px, 9vw, 48px);
+     margin: 30px 0 0;
+  }
+  .heroSubtitle {
+    font-size: 14px;
+  }
+  .btn {
+    width: 100%;
+    min-width: unset;
+  }
+  .heroCtas {
+    width: 100%;
+  }
+
+  .heroVideo,
+  .videoFallback {
+    height: 220px;
   }
 }
 
@@ -1792,18 +1797,17 @@ body.mobile-menu-open {
 
 @media (max-width: 767px) {
   .navBar {
+    width: fit-content;
+    max-width: calc(100% - 28px);
+    margin: 0 14px 0 auto;
+    height: 44px;
+    flex-wrap: nowrap;
+    gap: 0;
+    padding: 8px 10px;
     justify-content: flex-end;
   }
-
   .navRight {
-    margin-left: auto;
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-  }
-
-  .mobile-menu-button {
-    margin-left: 0;
+    margin-right: 0;
   }
 }
 
@@ -1873,6 +1877,11 @@ body.mobile-menu-open {
   cursor: pointer;
 }
 
+
+
+
+
+/* Back to services button styles */
 .back-to-services-btn {
   display: inline-flex;
   align-items: center;
@@ -1977,6 +1986,8 @@ body.mobile-menu-open {
   .textmorph__row {
     font-size: clamp(1.8rem, 12vw, 3rem); /* Even smaller for phones */
     letter-spacing: -0.01em;
+    margin-left: -170px;
+    margin-top: 80px;
   }
   
   .textmorph__in {
@@ -2087,4 +2098,55 @@ body.mobile-menu-open {
   .infographic-container {
     padding: 0.5rem;
   }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.enlarged-image {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.close-button {
+  position: absolute;
+  top: -30px;
+  right: 5px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.infographic-image {
+  transition: transform 0.2s ease;
+}
+
+.infographic-image:hover {
+  transform: scale(1.02);
 }

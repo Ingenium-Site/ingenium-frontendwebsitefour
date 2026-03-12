@@ -1,8 +1,11 @@
-import PageHeader from '../components/PageHeader.jsx'
+import { useState } from 'react';
+import PageHeader from '../components/PageHeader.jsx';
 import Footer from "../components/Footer/Footer.jsx";
 import ieeImage from '../assets/iee.png';
 
 export default function HowWeThink() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <main className="page">
       <PageHeader title="INGENIUM INTELLIGENCE ENGINE" />
@@ -26,7 +29,31 @@ export default function HowWeThink() {
                 src={ieeImage} 
                 alt="Ingenium Intelligence Engine infographic showing the six-stage cycle" 
                 className="infographic-image"
+                onClick={() => setIsModalOpen(true)}
+                style={{ cursor: 'pointer' }}
               />
+              
+              {/* Modal for enlarged image */}
+              {isModalOpen && (
+                <div 
+                  className="modal-overlay" 
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                    <img 
+                      src={ieeImage} 
+                      alt="Enlarged Ingenium Intelligence Engine infographic" 
+                      className="enlarged-image"
+                    />
+                    <button 
+                      className="close-button" 
+                      onClick={() => setIsModalOpen(false)}
+                    >
+                      ×
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
             
             <p className="infographic-closing">
@@ -38,5 +65,5 @@ export default function HowWeThink() {
       </div>
       <Footer />
     </main>
-  )
+  );
 }
