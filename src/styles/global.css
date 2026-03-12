@@ -342,6 +342,7 @@ html[data-theme="light"] .wciBtn {
     top: 0; /* Position from the top edge */
     width: 100%; /* Full width */
     height: 100%; /* Full height */
+    margin-top: -30px;
     --flowmap-offset-x: -0.22; /* Shift to show more of the right side of the image */
   }
   
@@ -467,11 +468,12 @@ html[data-theme="light"] .wciBtn {
   }
   .heroInner {
     width: calc(100% - 28px);
-    padding-top: 14px;
-    height: 130%;
+    /* padding-top: 14px; */
+    /* height: 130%; */
   }
   .heroTitle {
     font-size: clamp(32px, 8vw, 46px);
+    margin: 20px 0 0;
   }
   .heroSubtitle {
     font-size: 14px;
@@ -491,9 +493,9 @@ html[data-theme="light"] .wciBtn {
   .heroScrollCue {
     bottom: 20px; /* Position it within the hero section instead of below */
     position: relative; /* Change to relative positioning to keep it within hero */
-    left: 20px; /* Reset left positioning */
+    left: 10px; /* Reset left positioning */
     transform: none; /* Remove transform */
-    margin: 20px auto 0; /* Center with margin and add top spacing */
+    margin: 5px auto 0; /* Center with margin and add top spacing */
   }
 }
 
@@ -920,7 +922,7 @@ html[data-theme="light"] .wciBtn {
 
 .morph-container.centered {
   position: relative;
-  margin-top: 30px; /* Adjust spacing as needed */
+  margin-top: 39px; /* Adjust spacing as needed */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1480,6 +1482,7 @@ html[data-theme="light"] .expGridCard:hover .expListItem {
 
   .heroTitle {
     font-size: clamp(34px, 9vw, 48px);
+     margin: 30px 0 0;
   }
   .heroSubtitle {
     font-size: 14px;
@@ -1898,9 +1901,9 @@ body.mobile-menu-open {
 
 .hero-morph {
   position: absolute;
-  top: auto; /* Changed from 50% */
-  bottom: 15%; /* Positioned towards the bottom */
-  left: 85%;
+  top: 40px; /* Changed from 50% */
+   /* Positioned towards the bottom */
+  left: 80%;
   transform: translateX(-50%); /* Only translate horizontally */
   width: 100%;
   height: auto;
@@ -1960,8 +1963,8 @@ body.mobile-menu-open {
       position: absolute;
     font-size: 40px !important ; /* Smaller max size for tablets */
     letter-spacing: -0.015em; /* Slightly less negative spacing on mobile */
-  margin-left: -150px;
-  margin-top: 90px;
+  margin-left: -170px;
+  margin-top: 80px;
 
   }
   
