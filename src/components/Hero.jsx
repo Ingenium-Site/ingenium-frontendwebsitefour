@@ -141,14 +141,14 @@ export default function Hero({ videoSrc = '' }) {
             Let’s Build Something Great
           </Link>
         </div>
-        <button
-          type="button"
-          className="heroScrollCue"
-          aria-label="Scroll to content"
-          onClick={scrollToNextSection}
-        >
-          <ChevronDown size={28} strokeWidth={2} aria-hidden="true" />
-        </button>
+       <button
+        type="button"
+        className="heroScrollCue"
+        aria-label="Scroll to content"
+        onClick={scrollToNextSection}
+      >
+        <ChevronDown size={28} strokeWidth={2} aria-hidden="true" />
+      </button>
       </div>
     </section>
   )

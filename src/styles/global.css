@@ -403,8 +403,8 @@ html[data-theme="light"] .wciBtn {
 
 .heroScrollCue {
   position: absolute;
-  left: 49%;
-  bottom: -120px;
+  left: 50%;
+  bottom: -90px; /* Position it within the hero section */
   transform: translateX(-50%);
   width: 52px;
   height: 52px;
@@ -419,6 +419,7 @@ html[data-theme="light"] .wciBtn {
   cursor: pointer;
   animation: heroScrollCueBounce 1250ms ease-in-out infinite;
   will-change: transform;
+  z-index: 10000; /* Ensure it appears above all other content */
 }
 
 .heroScrollCue:hover {
@@ -507,9 +508,9 @@ html[data-theme="light"] .wciBtn {
 
   /* Adjust scroll cue position for mobile */
   .heroScrollCue {
-    bottom: 20px; /* Position it within the hero section instead of below */
+    bottom: 2px; /* Position it within the hero section instead of below */
     position: relative; /* Change to relative positioning to keep it within hero */
-    left: 10px; /* Reset left positioning */
+    left: -5px; /* Reset left positioning */
     transform: none; /* Remove transform */
     margin: 5px auto 0; /* Center with margin and add top spacing */
   }

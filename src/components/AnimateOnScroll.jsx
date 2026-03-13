@@ -8,12 +8,14 @@ const AnimateOnScroll = ({
   delay = 0,
   speed = 'normal',
   threshold = 0.12,
+  repeat = true,
   resetKey,
 }) => {
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [localResetKey, setLocalResetKey] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [manualInView, setManualInView] = useState(false);
+  const manualInViewRef = useRef(false);
   const hostRef = useRef(null);
 
   useEffect(() => {
@@ -37,6 +39,11 @@ const AnimateOnScroll = ({
   }, []);
 
   const hasIntersectionObserver = typeof window !== 'undefined' && 'IntersectionObserver' in window;
+  const needsManualInView =
+    typeof window !== 'undefined' &&
+    (!hasIntersectionObserver ||
+      (typeof window.matchMedia === 'function' &&
+        window.matchMedia('(hover: none) and (pointer: coarse)').matches));
 
   const { ref, inView } = useInView({
     triggerOnce: false,
@@ -54,7 +61,7 @@ const AnimateOnScroll = ({
   }, [resetKey]);
 
   useEffect(() => {
-    if (hasIntersectionObserver) return;
+    if (!needsManualInView) return;
     const el = hostRef.current;
     if (!el) return;
 
@@ -68,6 +75,8 @@ const AnimateOnScroll = ({
       // Consider it "in view" once the top is within (1 - threshold) of the viewport.
       const triggerLine = vh * (1 - Math.min(0.95, Math.max(0, threshold)));
       const isVisible = rect.top <= triggerLine && rect.bottom >= 0;
+      if (manualInViewRef.current === isVisible) return;
+      manualInViewRef.current = isVisible;
       setManualInView(isVisible);
     };
 
@@ -87,7 +96,7 @@ const AnimateOnScroll = ({
       window.removeEventListener('resize', onEvent);
       window.removeEventListener('orientationchange', onEvent);
     };
-  }, [hasIntersectionObserver, threshold]);
+  }, [needsManualInView, threshold]);
 
   useEffect(() => {
     if (reduceMotion) {
@@ -95,16 +104,16 @@ const AnimateOnScroll = ({
       return;
     }
 
-    const effectiveInView = hasIntersectionObserver ? inView : manualInView;
+    const effectiveInView = (hasIntersectionObserver ? inView : false) || manualInView;
     if (effectiveInView) {
       // Use rAF to avoid missing very short intersections on fast mobile scroll.
       const raf = window.requestAnimationFrame(() => setShouldAnimate(true));
       return () => window.cancelAnimationFrame(raf);
     }
 
-    setShouldAnimate(false);
+    if (repeat) setShouldAnimate(false);
     return undefined;
-  }, [reduceMotion, inView, manualInView, resetKey, hasIntersectionObserver]);
+  }, [reduceMotion, inView, manualInView, resetKey, hasIntersectionObserver, repeat]);
 
   const speedClass = useMemo(
     () => ({
