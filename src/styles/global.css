@@ -428,16 +428,18 @@ html[data-theme="light"] .wciBtn {
   }
 }
 
-@media (max-width: 900px) {
+/* HERO SECTION Mobile responsiveness adjustments */
+
+@media (max-width: 980px) {
   .hero {
-    min-height: 92vh;
-    height: auto;
+    min-height: 70vh;
     padding-bottom: 26px;
   }
   .heroInner {
-    width: calc(100% - 28px);
-    /* padding-top: 14px; */
-    /* height: 130%; */
+    width: min(980px, calc(100% - 28px));
+    padding-top: 183px;
+    height: 190%;
+    position: relative;
   }
   .heroTitle {
     font-size: clamp(32px, 8vw, 46px);
@@ -455,6 +457,38 @@ html[data-theme="light"] .wciBtn {
   .heroVideo,
   .videoFallback {
     height: clamp(200px, 54vw, 300px);
+  }
+
+  .morph-container.centered {
+    position: relative;
+    margin-top: -20px;
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Keep the morph text near the top (over the "i" in the artwork) */
+  .morph-container.centered.hero-morph {
+    position: absolute;
+    top: 0;
+    bottom:700px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    margin-top: -20px;
+    pointer-events: none;
+  }
+
+  /* Reduce morph size on mobile without changing its content */
+  .hero .textmorph {
+    margin-top: 0;
+    text-align: center;
+  }
+  .hero .textmorph__row {
+    font-size: clamp(26px, 12vw, 96px);
   }
 
   /* Adjust scroll cue position for mobile */
@@ -890,7 +924,8 @@ html[data-theme="light"] .wciBtn {
 
 .morph-container.centered {
   position: relative;
-  margin-top: 39px; /* Adjust spacing as needed */
+  margin-top: 88px; /* Adjust spacing as needed */
+  margin-right: -500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1595,19 +1630,6 @@ html[data-theme="light"] .expGridCard:hover .expListItem {
 
 /* Tablet + small laptop responsiveness */
 @media (max-width: 980px) {
-  .hero {
-    min-height: 88vh;
-    height: 88vh;
-  }
-  .heroInner {
-    width: min(980px, calc(100% - 28px));
-    padding-top: 14px;
-    height: 130%;
-  }
-  .videoCard {
-    width: min(980px, calc(100% - 28px));
-  }
-
   .navBar {
     width: calc(100% - 28px);
   }
@@ -1909,99 +1931,7 @@ body.mobile-menu-open {
 }
 
 .hero-morph {
-  position: absolute;
-  top: 40px; /* Changed from 50% */
-   /* Positioned towards the bottom */
-  left: 80%;
-  transform: translateX(-50%); /* Only translate horizontally */
   width: 100%;
-  height: auto;
-  z-index: 2;
-}
-
-.morph-container.centered .textmorph {
-  font-size: clamp(2.5rem, 6vw, 5rem); /* Smaller maximum size for mobile */
-  height: auto;
-  min-height: auto;
-}
-
-.textmorph__row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-}
-
-
-.textmorph__slot {
-  height: auto;
-}
-
-.textmorph__word {
-  font-size: inherit;
-  font-weight: bold;
-}
-
-/* Specific mobile adjustments */
-@media (max-width: 768px) {
-  .hero-morph {
-    bottom: 10%; /* Slightly higher on smaller screens */
-    width: 90%;
-    top:-240px;
-    left:250px;
-  }
-  
-  .morph-container.centered .textmorph {
-    font-size: clamp(2rem, 8vw, 3.5rem); /* Adjusted for mobile screens */
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-morph {
-    bottom: 8%; /* Even higher on very small screens */
-  }
-  
-  .morph-container.centered .textmorph {
-    font-size: clamp(1.8rem, 10vw, 2.8rem); /* Further adjusted for smallest screens */
-  }
-}
-
-/* Mobile-specific adjustments */
-@media (max-width: 768px) {
-  .textmorph__row {
-      position: absolute;
-    font-size: 40px !important ; /* Smaller max size for tablets */
-    letter-spacing: -0.015em; /* Slightly less negative spacing on mobile */
-  margin-left: -170px;
-  margin-top: 80px;
-
-  }
-  
-  .textmorph__underline {
-    bottom: -6px; /* Adjusted for smaller text */
-  }
-}
-
-@media (max-width: 480px) {
-  .textmorph__row {
-    font-size: clamp(1.8rem, 12vw, 3rem); /* Even smaller for phones */
-    letter-spacing: -0.01em;
-    margin-left: -170px;
-    margin-top: 80px;
-  }
-  
-  .textmorph__in {
-    display: block; /* Stack elements vertically if needed */
-  }
-  
-  .textmorph__slot {
-    margin-left: 0;
-    display: block; /* Stack on smaller screens */
-  }
-  
-  .textmorph__underline {
-    bottom: -5px;
-  }
 }
 
 .pdf-container {
