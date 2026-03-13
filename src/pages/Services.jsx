@@ -189,13 +189,13 @@ export default function Services() {
               aria-hidden="true"
               onClick={() => setServicesOpen(true)}
             >
-              <span className="homeServicesFloat__tooltip">Explore Our Services</span>
+              <span className="homeServicesFloat__tooltip">Request Our Services</span>
               <div className="homeServicesFloat homeServicesFloat--animated">
                 <span className="homeServicesFloat__icon">
                   <Sparkles size={30} strokeWidth={1.9} />
                 </span>
                 <span className="homeServicesFloat__label">
-                  <span className="homeServicesFloat__title">Explore Our Services</span>
+                  <span className="homeServicesFloat__title">Request Our Services</span>
                 </span>
               </div>
             </span>
