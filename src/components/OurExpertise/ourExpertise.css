@@ -130,14 +130,14 @@ body[data-theme="dark"] .oeIconCircle,
   background: rgba(40, 231, 240, 0.95);
   color: #031416;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 900;
   margin-bottom: 40px; /* Added bottom margin */
 }
 
 .oeTitle {
   font-size: clamp(35px, 5vw, 64px); /* Increased font size */
   font-weight: 800;
-  line-height: 1.2; /* Reduced line height for tighter spacing */
+  line-height: 1.0; /* Reduced line height for tighter spacing */
   letter-spacing: -0.02em; /* Slight negative tracking for better readability */
   color: rgba(255, 255, 255, 0.96);
   margin-bottom: 10px;
