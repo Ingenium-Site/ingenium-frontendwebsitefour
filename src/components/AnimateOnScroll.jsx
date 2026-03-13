@@ -2,6 +2,49 @@ import React, { cloneElement, useEffect, useMemo, useRef, useState } from 'react
 import { useInView } from 'react-intersection-observer';
 import 'animate.css';
 
+const manualViewSubscribers = new Set();
+let manualViewListenersAttached = false;
+let manualViewRafId = 0;
+let manualViewOnEvent = null;
+
+const attachManualViewListeners = () => {
+  if (typeof window === 'undefined') return;
+  if (manualViewListenersAttached) return;
+  manualViewListenersAttached = true;
+
+  manualViewOnEvent = () => {
+    if (manualViewRafId) return;
+    manualViewRafId = window.requestAnimationFrame(() => {
+      manualViewRafId = 0;
+      manualViewSubscribers.forEach((fn) => fn());
+    });
+  };
+
+  window.addEventListener('scroll', manualViewOnEvent, { passive: true });
+  window.addEventListener('resize', manualViewOnEvent, { passive: true });
+  window.addEventListener('orientationchange', manualViewOnEvent, { passive: true });
+};
+
+const detachManualViewListenersIfIdle = () => {
+  if (typeof window === 'undefined') return;
+  if (!manualViewListenersAttached) return;
+  if (manualViewSubscribers.size) return;
+
+  if (manualViewRafId) {
+    window.cancelAnimationFrame(manualViewRafId);
+    manualViewRafId = 0;
+  }
+
+  if (manualViewOnEvent) {
+    window.removeEventListener('scroll', manualViewOnEvent);
+    window.removeEventListener('resize', manualViewOnEvent);
+    window.removeEventListener('orientationchange', manualViewOnEvent);
+    manualViewOnEvent = null;
+  }
+
+  manualViewListenersAttached = false;
+};
+
 const AnimateOnScroll = ({
   children,
   animation = 'fadeInUp',
@@ -39,11 +82,19 @@ const AnimateOnScroll = ({
   }, []);
 
   const hasIntersectionObserver = typeof window !== 'undefined' && 'IntersectionObserver' in window;
-  const needsManualInView =
-    typeof window !== 'undefined' &&
-    (!hasIntersectionObserver ||
-      (typeof window.matchMedia === 'function' &&
-        window.matchMedia('(hover: none) and (pointer: coarse)').matches));
+  const needsManualInView = (() => {
+    if (typeof window === 'undefined') return false;
+    if (!hasIntersectionObserver) return true;
+
+    const viewportWidth = window.innerWidth || document.documentElement?.clientWidth || 0;
+    if (viewportWidth && viewportWidth <= 900) return true;
+
+    if (typeof window.matchMedia === 'function') {
+      return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    }
+
+    return false;
+  })();
 
   const { ref, inView } = useInView({
     triggerOnce: false,
@@ -57,6 +108,7 @@ const AnimateOnScroll = ({
   useEffect(() => {
     setLocalResetKey((prev) => prev + 1);
     setShouldAnimate(false);
+    manualInViewRef.current = false;
     setManualInView(false);
   }, [resetKey]);
 
@@ -65,9 +117,7 @@ const AnimateOnScroll = ({
     const el = hostRef.current;
     if (!el) return;
 
-    let rafId = 0;
     const check = () => {
-      rafId = 0;
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight || 0;
       if (!vh) return;
@@ -80,21 +130,13 @@ const AnimateOnScroll = ({
       setManualInView(isVisible);
     };
 
-    const onEvent = () => {
-      if (rafId) return;
-      rafId = window.requestAnimationFrame(check);
-    };
-
+    attachManualViewListeners();
+    manualViewSubscribers.add(check);
     check();
-    window.addEventListener('scroll', onEvent, { passive: true });
-    window.addEventListener('resize', onEvent, { passive: true });
-    window.addEventListener('orientationchange', onEvent, { passive: true });
 
     return () => {
-      if (rafId) window.cancelAnimationFrame(rafId);
-      window.removeEventListener('scroll', onEvent);
-      window.removeEventListener('resize', onEvent);
-      window.removeEventListener('orientationchange', onEvent);
+      manualViewSubscribers.delete(check);
+      detachManualViewListenersIfIdle();
     };
   }, [needsManualInView, threshold]);
 
@@ -105,13 +147,8 @@ const AnimateOnScroll = ({
     }
 
     const effectiveInView = (hasIntersectionObserver ? inView : false) || manualInView;
-    if (effectiveInView) {
-      // Use rAF to avoid missing very short intersections on fast mobile scroll.
-      const raf = window.requestAnimationFrame(() => setShouldAnimate(true));
-      return () => window.cancelAnimationFrame(raf);
-    }
-
-    if (repeat) setShouldAnimate(false);
+    if (effectiveInView) setShouldAnimate(true);
+    else if (repeat) setShouldAnimate(false);
     return undefined;
   }, [reduceMotion, inView, manualInView, resetKey, hasIntersectionObserver, repeat]);
 
@@ -135,6 +172,10 @@ const AnimateOnScroll = ({
   return cloneElement(child, {
     key: localResetKey,
     ref: mergedRef,
+    'data-animateonscroll': true,
+    'data-animateonscroll-state': reduceMotion ? 'reduced-motion' : shouldAnimate ? 'animated' : 'hidden',
+    'data-animateonscroll-io': hasIntersectionObserver ? String(!!inView) : 'no-io',
+    'data-animateonscroll-manual': String(!!manualInView),
     className: `${child.props.className || ''} ${reduceMotion ? '' : 'animate__animated'} ${
       !reduceMotion && shouldAnimate ? `animate__${animation} ${speedClass}` : ''
     }`.trim(),

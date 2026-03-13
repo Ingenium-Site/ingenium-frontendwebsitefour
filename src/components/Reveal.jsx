@@ -11,11 +11,19 @@ export default function Reveal({ children, from = 'up', delay = 0, className = '
     const hasIntersectionObserver =
       typeof window !== 'undefined' && typeof window.IntersectionObserver === 'function'
 
-    const needsManualCheck =
-      typeof window !== 'undefined' &&
-      (!hasIntersectionObserver ||
-        (typeof window.matchMedia === 'function' &&
-          window.matchMedia('(hover: none) and (pointer: coarse)').matches))
+    const needsManualCheck = (() => {
+      if (typeof window === 'undefined') return false
+      if (!hasIntersectionObserver) return true
+
+      const viewportWidth = window.innerWidth || document.documentElement?.clientWidth || 0
+      if (viewportWidth && viewportWidth <= 900) return true
+
+      if (typeof window.matchMedia === 'function') {
+        return window.matchMedia('(hover: none) and (pointer: coarse)').matches
+      }
+
+      return false
+    })()
 
     let io = null
     if (hasIntersectionObserver) {
